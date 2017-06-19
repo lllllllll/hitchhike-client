@@ -10,14 +10,9 @@ const Container = styled.div.attrs({
   align-items: center;
 `;
 
-const AvatarContainer = styled.div`
-  width: 5em;
-  height: 5em;
-`;
-
 const Image = styled.img`
-  width: 5em;
-  height: 5em;
+  width: 3em;
+  height: 3em;
   border-radius: 100%;
 `;
 
@@ -46,9 +41,7 @@ class Trip extends Component {
 
     return (
       <Container className="trip-component">
-        <AvatarContainer>
-          <Image src="https://avatars2.githubusercontent.com/u/25485275?v=3&u=4f2f71b977544a61c63121d4bea843e4f2d10b2a&s=400" />
-        </AvatarContainer>
+        <Image src="https://avatars2.githubusercontent.com/u/25485275?v=3&u=4f2f71b977544a61c63121d4bea843e4f2d10b2a&s=400" />
         <div>
           <Info height="5em">
             <i className="material-icons">directions_car</i>
