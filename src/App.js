@@ -13,6 +13,11 @@ const AppQuery = graphql`
         id
         travel_time
         destination_name
+        created_by {
+          id
+          name
+          picture_url
+        }
       }
       friends {
         trips {

@@ -4,6 +4,7 @@ import Trip from './trip';
 
 const List = styled.ul`
   list-style-type: none;
+  padding: 0;
 `;
 
 class Trips extends Component {
