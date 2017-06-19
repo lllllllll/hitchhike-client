@@ -4,8 +4,8 @@ import { QueryRenderer, graphql } from 'react-relay';
 import environment from './environment';
 
 const AppQuery = graphql`
-  query AppQuery{
-    users {
+  query AppQuery($access_token: String){
+    user(access_token: $access_token) {
       id
       name
       is_admin
@@ -15,11 +15,20 @@ const AppQuery = graphql`
         destination_name
       }
       friends {
-        id
         trips {
           id
           travel_time
           destination_name
+          created_by {
+            id
+            name
+            picture_url
+          }
+          hitchhikers {
+            id
+            name
+            picture_url
+          }
         }
       }
     }
@@ -32,11 +41,24 @@ class App extends Component {
       <QueryRenderer
         environment={environment}
         query={AppQuery}
+        variables={{
+          access_token: 'access_token'
+        }}
         render={({ error, props }) => {
+          console.log(props);
           if (error) {
             return <div>{error.message}</div>;
           } else if (props) {
-            return <Trips trips={props.trips} />;
+            return (
+              <Trips
+                myTrips={props.user.trips}
+                friendTrips={props.user.friends
+                  .map(friend => friend.trips)
+                  .reduce((a, b) => {
+                    return a.concat(b);
+                  }, [])}
+              />
+            );
           }
           return <div>Loading...</div>;
         }}

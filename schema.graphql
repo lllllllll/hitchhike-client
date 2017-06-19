@@ -22,11 +22,12 @@ type Mutation {
 }
 
 type RootQuery {
-  user(id: String): User
+  user(id: String, access_token: String): User
   users: [User]
   trip(id: String): Trip
   trips: [Trip]
   friendship(id: String): Friendship
+  friendships: [Friendship]
 }
 
 type Trip {
@@ -44,6 +45,7 @@ type User {
   name: String
   oauth_id: String
   picture_url: String
+  trips: [Trip]
   friends: [User]
 }
 
