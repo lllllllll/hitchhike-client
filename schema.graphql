@@ -1,0 +1,49 @@
+schema {
+  query: RootQuery
+  mutation: Mutation
+}
+
+type Friendship {
+  id: String
+  user_a: User
+  user_b: User
+  friendship_status: FriendshipStatus
+}
+
+type FriendshipStatus {
+  name: String
+}
+
+type Mutation {
+  addUser(name: String!, oauth_id: String!): User
+  addFriendship(user_a: String!, user_b: String!): Friendship
+  addTrip(created_by: String!, destination_name: String!, travel_time: Float!): Trip
+  updateTrip(id: String!, destination_name: String, travel_time: Float, hitchhikers: [String]): Trip
+}
+
+type RootQuery {
+  user(id: String): User
+  users: [User]
+  trip(id: String): Trip
+  trips: [Trip]
+  friendship(id: String): Friendship
+}
+
+type Trip {
+  id: String
+  created_by: User
+  destination_name: String
+  hitchhikers: [User]
+  travel_time: Float
+}
+
+type User {
+  access_token: String
+  id: String
+  is_admin: Boolean
+  name: String
+  oauth_id: String
+  picture_url: String
+  friends: [User]
+}
+
