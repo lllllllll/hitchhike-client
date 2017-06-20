@@ -3,7 +3,7 @@ import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 const store = new Store(new RecordSource());
 
 const network = Network.create((operation, variables) => {
-  return fetch(`${process.env.HITCHHIKE_API_URL}/graphql`, {
+  return fetch(`${process.env.REACT_APP_HITCHHIKE_API_URL}/graphql`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
