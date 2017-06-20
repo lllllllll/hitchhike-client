@@ -14,7 +14,7 @@ class Container extends Component {
       res => {
         if (res.authResponse) {
           const access_token = res.authResponse.accessToken;
-          return fetch('http://localhost:3006/signin', {
+          return fetch(`${process.env.REACT_APP_HITCHHIKE_API_URL}/signin`, {
             method: 'POST',
             headers: {
               Accept: 'application/json',
