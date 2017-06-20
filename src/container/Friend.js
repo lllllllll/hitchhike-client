@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { QueryRenderer, graphql } from 'react-relay';
 import environment from '../environment';
+import Friend from '../component/Friend';
 
 const query = graphql`
   query FriendQuery($access_token: String){
@@ -31,7 +32,7 @@ const query = graphql`
   }
 `;
 
-class Friend extends Component {
+class Container extends Component {
   render() {
     return (
       <QueryRenderer
@@ -54,4 +55,4 @@ class Friend extends Component {
   }
 }
 
-export default Friend;
+export default Container;
