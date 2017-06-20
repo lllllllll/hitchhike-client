@@ -33,14 +33,16 @@ type RootQuery {
 type Trip {
   id: String
   created_by: User
-  destination_name: String
+  from: String
+  to: String
   hitchhikers: [User]
   travel_time: Float
 }
 
 input TripInputType {
   created_by: String!
-  destination_name: String!
+  from: String!
+  to: String!
   travel_time: Float!
 }
 

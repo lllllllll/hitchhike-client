@@ -3,8 +3,8 @@
  *   relay-compiler
  *
  * @providesModule HomeQuery.graphql
- * @generated SignedSource<<e9b7b7ff719058d72ebc6d59630c03bf>>
- * @relayHash 8e92ce1a55d6a0c8977a1f664b4b6ced
+ * @generated SignedSource<<da892f62f2ebcb427005634065c11647>>
+ * @relayHash 5d4ab284adbc2cb30c9ef71bb7db348d
  * @flow
  * @nogrep
  */
@@ -30,7 +30,8 @@ query HomeQuery(
     trips {
       id
       travel_time
-      destination_name
+      from
+      to
       created_by {
         id
         name
@@ -41,7 +42,8 @@ query HomeQuery(
       trips {
         id
         travel_time
-        destination_name
+        from
+        to
         created_by {
           id
           name
@@ -134,7 +136,14 @@ const batch /*: ConcreteBatch*/ = {
                 "kind": "ScalarField",
                 "alias": null,
                 "args": null,
-                "name": "destination_name",
+                "name": "from",
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "args": null,
+                "name": "to",
                 "storageKey": null
               },
               {
@@ -206,7 +215,14 @@ const batch /*: ConcreteBatch*/ = {
                     "kind": "ScalarField",
                     "alias": null,
                     "args": null,
-                    "name": "destination_name",
+                    "name": "from",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "to",
                     "storageKey": null
                   },
                   {
@@ -364,7 +380,14 @@ const batch /*: ConcreteBatch*/ = {
                 "kind": "ScalarField",
                 "alias": null,
                 "args": null,
-                "name": "destination_name",
+                "name": "from",
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "args": null,
+                "name": "to",
                 "storageKey": null
               },
               {
@@ -436,7 +459,14 @@ const batch /*: ConcreteBatch*/ = {
                     "kind": "ScalarField",
                     "alias": null,
                     "args": null,
-                    "name": "destination_name",
+                    "name": "from",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "to",
                     "storageKey": null
                   },
                   {
@@ -514,7 +544,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query HomeQuery(\n  $access_token: String\n) {\n  user(access_token: $access_token) {\n    id\n    name\n    is_admin\n    trips {\n      id\n      travel_time\n      destination_name\n      created_by {\n        id\n        name\n        picture_url\n      }\n    }\n    friends {\n      trips {\n        id\n        travel_time\n        destination_name\n        created_by {\n          id\n          name\n          picture_url\n        }\n        hitchhikers {\n          id\n          name\n          picture_url\n        }\n      }\n    }\n  }\n}\n"
+  "text": "query HomeQuery(\n  $access_token: String\n) {\n  user(access_token: $access_token) {\n    id\n    name\n    is_admin\n    trips {\n      id\n      travel_time\n      from\n      to\n      created_by {\n        id\n        name\n        picture_url\n      }\n    }\n    friends {\n      trips {\n        id\n        travel_time\n        from\n        to\n        created_by {\n          id\n          name\n          picture_url\n        }\n        hitchhikers {\n          id\n          name\n          picture_url\n        }\n      }\n    }\n  }\n}\n"
 };
 
 module.exports = batch;

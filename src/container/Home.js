@@ -12,7 +12,8 @@ const homeQuery = graphql`
       trips {
         id
         travel_time
-        destination_name
+        from
+        to
         created_by {
           id
           name
@@ -23,7 +24,8 @@ const homeQuery = graphql`
         trips {
           id
           travel_time
-          destination_name
+          from
+          to
           created_by {
             id
             name

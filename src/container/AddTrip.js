@@ -38,7 +38,8 @@ class AddTrip extends Component {
         variables: {
           trip: {
             created_by: user_id,
-            destination_name: this.state.from,
+            from: this.state.from,
+            to: this.state.to,
             travel_time: new Date().getTime()
           }
         },
