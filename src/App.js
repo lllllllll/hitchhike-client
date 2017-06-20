@@ -16,7 +16,7 @@ class App extends Component {
             exact
             path="/"
             component={props => {
-              if (cookieManager.hasToken === false) {
+              if (cookieManager.hasToken() === false) {
                 return (
                   <Redirect
                     to={{
