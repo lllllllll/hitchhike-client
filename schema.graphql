@@ -17,7 +17,7 @@ type FriendshipStatus {
 type Mutation {
   addUser(name: String!, oauth_id: String!): User
   addFriendship(user_a: String!, user_b: String!): Friendship
-  addTrip(created_by: String!, destination_name: String!, travel_time: Float!): Trip
+  addTrip(trip: TripInputType!): Trip
   updateTrip(id: String!, destination_name: String, travel_time: Float, hitchhikers: [String]): Trip
 }
 
@@ -36,6 +36,12 @@ type Trip {
   destination_name: String
   hitchhikers: [User]
   travel_time: Float
+}
+
+input TripInputType {
+  created_by: String!
+  destination_name: String!
+  travel_time: Float!
 }
 
 type User {

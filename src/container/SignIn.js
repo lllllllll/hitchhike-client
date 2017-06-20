@@ -13,16 +13,14 @@ class Container extends Component {
     return window.FB.login(
       res => {
         if (res.authResponse) {
-          const accessToken = res.authResponse.accessToken;
+          const access_token = res.authResponse.accessToken;
           return fetch('http://localhost:3006/signin', {
             method: 'POST',
             headers: {
               Accept: 'application/json',
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-              access_token: accessToken
-            })
+            body: JSON.stringify({ access_token })
           })
             .then(res => res.json())
             .then(res => {

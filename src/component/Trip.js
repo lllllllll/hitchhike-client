@@ -38,26 +38,31 @@ const JoinButton = styled.button`
 class Trip extends Component {
   render() {
     const { destination_name, travel_time, created_by } = this.props.trip;
-    console.log(this.props.trip);
     return (
-      <Container className="trip-component">
-        <Image src={created_by.picture_url} alt={`by-${created_by.name}`} />
-        <div>
-          <Info height="5em">
+      <div className="trip-component media">
+        <figure className="media-left">
+          <p class="image is-64x64">
+            <img src={created_by.picture_url} alt={`by-${created_by.name}`} />
+          </p>
+        </figure>
+        <div className="media-content">
+          <Info>
             <i className="material-icons">directions_car</i>
-            <InfoText>{destination_name}</InfoText>
+            <strong>{destination_name}</strong>
           </Info>
           <Info>
             <i className="material-icons">access_time</i>
-            <InfoText>
+            <small>
               {moment(travel_time).format('DD MMM YYYY-HH:mm')}
-            </InfoText>
+            </small>
           </Info>
         </div>
-        <JoinButton>
-          <i className="material-icons">plus_one</i>
-        </JoinButton>
-      </Container>
+        <div className="media-right">
+          <JoinButton>
+            <i className="material-icons">plus_one</i>
+          </JoinButton>
+        </div>
+      </div>
     );
   }
 }

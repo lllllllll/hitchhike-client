@@ -37,6 +37,7 @@
     "extract-text-webpack-plugin": "2.1.0",
     "file-loader": "0.11.1",
     "fs-extra": "3.0.1",
+    "get-graphql-schema": "^2.0.0",
     "html-webpack-plugin": "2.28.0",
     "jest": "20.0.3",
     "object-assign": "4.1.1",
@@ -61,7 +62,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "relay:compile": "relay-compiler --src ./src --schema ./schema.graphql"
+    "relay:compile": "relay-compiler --src ./src --schema ./schema.graphql",
+    "relay:get-schema": "get-graphql-schema http://localhost:3006/graphql > schema.graphql"
   },
   "jest": {
     "collectCoverageFrom": [

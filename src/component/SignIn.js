@@ -28,18 +28,17 @@ const FacebookButton = styled.button`
 `;
 
 const SignIn = props => {
-  let signInButtonText = 'Sign in with Facebook';
-  if (props.isAuthenticating) {
-    signInButtonText = 'Logging in...';
-  }
   return (
     <Container className="signin-component">
-      <FacebookButton
+      <button
+        className={`button is-info${props.isAuthenticating
+          ? ' is-loading'
+          : ''}`}
         onClick={() => props.signInButtonClickedCallback()}
         disabled={props.isAuthenticating}
       >
-        {signInButtonText}
-      </FacebookButton>
+        {'Sign in with Facebook'}
+      </button>
     </Container>
   );
 };
