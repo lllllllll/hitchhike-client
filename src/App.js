@@ -26,7 +26,7 @@ class App extends Component {
                   />
                 );
               }
-              return <HomeContainer />;
+              return <HomeContainer cookieManager={cookieManager} />;
             }}
           />
           <Route

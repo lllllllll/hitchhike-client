@@ -14,21 +14,22 @@ class Container extends Component {
       res => {
         if (res.authResponse) {
           const accessToken = res.authResponse.accessToken;
-          this.props.cookieManager.setToken(accessToken);
-          this.setState({ hasToken: this.props.cookieManager.hasToken() });
-          // return this.props.service.data
-          //   .logIn(accessToken)
-          //   .then(({ access_token }) => {
-          //     this.props.cookieManager.setToken(access_token);
-          //     this.setState({ authenticating: false });
-          //   })
-          //   .catch(() => {
-          //     // TODO: create error logging
-          //     this.setState({
-          //       alertText: 'Server error',
-          //       authenticating: false
-          //     });
-          //   });
+          return fetch('http://localhost:3006/signin', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              access_token: accessToken
+            })
+          })
+            .then(res => res.json())
+            .then(res => {
+              this.props.cookieManager.setToken(res.access_token);
+              this.setState({ hasToken: this.props.cookieManager.hasToken() });
+            })
+            .catch(error => console.log(error));
         }
         this.setState({
           alertText: 'Facebook authentication failed',
@@ -40,7 +41,6 @@ class Container extends Component {
     );
   };
   render() {
-    console.log(this.state);
     if (this.state.hasToken) {
       return (
         <Redirect

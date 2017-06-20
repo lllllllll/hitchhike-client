@@ -11,6 +11,9 @@ export default class CookieManager {
   setToken(token) {
     this.docCookies.setItem(cookie.name.token, token, 60 * 60 * 24 * 30);
   }
+  getToken() {
+    return this.docCookies.getItem(cookie.name.token);
+  }
   hasToken() {
     return this.docCookies.hasItem(cookie.name.token);
   }
