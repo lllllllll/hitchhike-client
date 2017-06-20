@@ -1,73 +1,41 @@
 import React, { Component } from 'react';
-import Trips from './trips';
-import { QueryRenderer, graphql } from 'react-relay';
-import environment from './environment';
+import docCookies from 'doc-cookies';
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
+import SignInContainer from './container/SignIn';
+import HomeContainer from './container/Home';
+import CookieManager from './helper/CookieManager';
 
-const AppQuery = graphql`
-  query AppQuery($access_token: String){
-    user(access_token: $access_token) {
-      id
-      name
-      is_admin
-      trips {
-        id
-        travel_time
-        destination_name
-        created_by {
-          id
-          name
-          picture_url
-        }
-      }
-      friends {
-        trips {
-          id
-          travel_time
-          destination_name
-          created_by {
-            id
-            name
-            picture_url
-          }
-          hitchhikers {
-            id
-            name
-            picture_url
-          }
-        }
-      }
-    }
-  }
-`;
+const cookieManager = new CookieManager(docCookies);
 
 class App extends Component {
   render() {
     return (
-      <QueryRenderer
-        environment={environment}
-        query={AppQuery}
-        variables={{
-          access_token: 'access_token'
-        }}
-        render={({ error, props }) => {
-          console.log(props);
-          if (error) {
-            return <div>{error.message}</div>;
-          } else if (props) {
-            return (
-              <Trips
-                myTrips={props.user.trips}
-                friendTrips={props.user.friends
-                  .map(friend => friend.trips)
-                  .reduce((a, b) => {
-                    return a.concat(b);
-                  }, [])}
-              />
-            );
-          }
-          return <div>Loading...</div>;
-        }}
-      />
+      <Router>
+        <div>
+          <Route
+            exact
+            path="/"
+            component={props => {
+              if (cookieManager.hasToken === false) {
+                return (
+                  <Redirect
+                    to={{
+                      pathname: '/signin',
+                      state: { from: props.location }
+                    }}
+                  />
+                );
+              }
+              return <HomeContainer />;
+            }}
+          />
+          <Route
+            path="/signin"
+            component={props =>
+              <SignInContainer cookieManager={cookieManager} />}
+          />
+        </div>
+      </Router>
     );
   }
 }

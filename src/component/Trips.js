@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Trip from './trip';
+import Trip from './Trip';
 
 const List = styled.ul`
   list-style-type: none;

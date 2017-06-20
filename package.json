@@ -4,7 +4,9 @@
   "description": "Friend with hitchhiking benefit",
   "private": false,
   "dependencies": {
+    "doc-cookies": "^1.0.2",
     "moment": "^2.18.1",
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-relay": "^1.0.0",
