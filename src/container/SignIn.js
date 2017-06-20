@@ -5,11 +5,11 @@ import SignIn from '../component/SignIn';
 
 class Container extends Component {
   state = {
-    authenticating: false,
+    isAuthenticating: false,
     hasToken: this.props.cookieManager.hasToken()
   };
   authenticate = () => {
-    this.setState({ authenticating: true });
+    this.setState({ isAuthenticating: true });
     return window.FB.login(
       res => {
         if (res.authResponse) {
@@ -30,12 +30,13 @@ class Container extends Component {
               this.setState({ hasToken: this.props.cookieManager.hasToken() });
             })
             .catch(error => console.log(error));
+        } else {
+          this.setState({
+            alertText: 'Facebook authentication failed',
+            isAuthenticating: false
+          });
+          return Promise.resolve();
         }
-        this.setState({
-          alertText: 'Facebook authentication failed',
-          authenticating: false
-        });
-        return Promise.resolve();
       },
       { scope: 'public_profile' }
     );
@@ -51,7 +52,12 @@ class Container extends Component {
         />
       );
     }
-    return <SignIn signInButtonClickedCallback={this.authenticate} />;
+    return (
+      <SignIn
+        signInButtonClickedCallback={this.authenticate}
+        isAuthenticating={this.state.isAuthenticating}
+      />
+    );
   }
 }
 

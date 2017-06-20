@@ -19,20 +19,38 @@ const FacebookButton = styled.button`
   font-weight: bold;
   padding: 1em 2em;
   text-align: center;
+  width: 200px;
+
+  :disabled {
+    background-color: #829fd9;
+    border-color: #829fd9;
+  }
 `;
 
-const SignIn = props =>
-  <Container className="signin-component">
-    <FacebookButton onClick={() => props.signInButtonClickedCallback()}>
-      Sign in with Facebook
-    </FacebookButton>
-  </Container>;
+const SignIn = props => {
+  let signInButtonText = 'Sign in with Facebook';
+  if (props.isAuthenticating) {
+    signInButtonText = 'Logging in...';
+  }
+  return (
+    <Container className="signin-component">
+      <FacebookButton
+        onClick={() => props.signInButtonClickedCallback()}
+        disabled={props.isAuthenticating}
+      >
+        {signInButtonText}
+      </FacebookButton>
+    </Container>
+  );
+};
 
 SignIn.propTypes = {
+  isAuthenticating: PropTypes.bool,
   signInButtonClickedCallback: PropTypes.func
 };
 
 SignIn.defaultProps = {
+  isAuthenticating: false,
   signInButtonClickedCallback() {}
 };
 
