@@ -46,7 +46,7 @@ class Container extends Component {
             return <div>{error.message}</div>;
           } else if (props) {
             console.log(props);
-            return <div>test</div>;
+            return <Friend />;
           }
           return <div>Loading...</div>;
         }}
