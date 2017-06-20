@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { commitMutation, graphql, QueryRenderer } from 'react-relay';
+import { Redirect } from 'react-router-dom';
 import environment from '../environment';
 
 const query = graphql`
@@ -25,7 +26,8 @@ class AddTrip extends Component {
     from: '',
     to: '',
     date: '',
-    time: ''
+    time: '',
+    isFinished: false
   };
   inputChangeHandler(key) {
     return e => this.setState({ [key]: e.target.value });
@@ -43,12 +45,22 @@ class AddTrip extends Component {
             travel_time: new Date().getTime()
           }
         },
-        onCompleted: response => console.log(response),
+        onCompleted: () => this.setState({ isFinished: true }),
         onError: error => console.error(error)
       });
     };
   }
   render() {
+    if (this.state.isFinished) {
+      return (
+        <Redirect
+          to={{
+            pathname: '/',
+            state: { from: this.props.location }
+          }}
+        />
+      );
+    }
     return (
       <QueryRenderer
         environment={environment}
