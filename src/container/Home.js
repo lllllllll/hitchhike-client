@@ -49,8 +49,7 @@ class Home extends Component {
         environment={environment}
         query={homeQuery}
         variables={{
-          // access_token: this.props.cookieManager.getToken()
-          access_token: 'access_token'
+          access_token: this.props.cookieManager.getToken()
         }}
         render={({ error, props }) => {
           if (error) {

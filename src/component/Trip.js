@@ -2,28 +2,10 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 
-const Container = styled.div.attrs({
-  tabIndex: 0
-})`
-  padding: 10px;
-  display: flex;
-  align-items: center;
-`;
-
-const Image = styled.img`
-  width: 3em;
-  height: 3em;
-  border-radius: 100%;
-`;
-
 const Info = styled.div`
   height: 2em;
   display: flex;
   align-items: center;
-  margin: 0 0 0 1em;
-`;
-
-const InfoText = styled.div`
   margin: 0 0 0 1em;
 `;
 
@@ -41,7 +23,7 @@ class Trip extends Component {
     return (
       <div className="trip-component media">
         <figure className="media-left">
-          <p class="image is-64x64">
+          <p className="image is-64x64">
             <img src={created_by.picture_url} alt={`by-${created_by.name}`} />
           </p>
         </figure>
