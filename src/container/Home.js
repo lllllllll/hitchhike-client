@@ -3,7 +3,7 @@ import Home from '../component/Home';
 import { QueryRenderer, graphql } from 'react-relay';
 import environment from '../environment';
 
-const homeQuery = graphql`
+const query = graphql`
   query HomeQuery($access_token: String){
     user(access_token: $access_token) {
       id
@@ -32,7 +32,7 @@ const container = ({ cookieManager }) => {
   return (
     <QueryRenderer
       environment={environment}
-      query={homeQuery}
+      query={query}
       variables={variables}
       render={({ error, props }) => {
         if (error) {
