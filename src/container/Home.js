@@ -25,7 +25,7 @@ const query = graphql`
   }
 `;
 
-const container = ({ cookieManager }) => {
+const Container = ({ cookieManager }) => {
   const variables = {
     access_token: cookieManager.getToken()
   };
@@ -46,4 +46,4 @@ const container = ({ cookieManager }) => {
   );
 };
 
-export default container;
+export default Container;
