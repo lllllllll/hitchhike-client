@@ -38,7 +38,7 @@ class AddTrip extends Component {
       commitMutation(environment, {
         mutation,
         variables: {
-          trip: {
+          input: {
             created_by: user_id,
             from: this.state.from,
             to: this.state.to,
@@ -72,7 +72,6 @@ class AddTrip extends Component {
           if (error) {
             return <div>{error.message}</div>;
           } else if (props) {
-            console.log(props);
             return (
               <div>
                 <h1 className="title">Begin a trip!</h1>
