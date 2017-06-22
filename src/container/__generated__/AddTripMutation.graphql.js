@@ -3,8 +3,8 @@
  *   relay-compiler
  *
  * @providesModule AddTripMutation.graphql
- * @generated SignedSource<<400d464b272fe8fc2079d9c61276e18e>>
- * @relayHash 8d8150fc1472ce15db5cc00506ae8280
+ * @generated SignedSource<<be8fd3a1f64b80b55e5c097e9e210e61>>
+ * @relayHash 7a198f93a37bbd7e7be95eeb44a2877e
  * @flow
  * @nogrep
  */
@@ -15,9 +15,10 @@
 
 /*::
 import type {ConcreteBatch} from 'relay-runtime';
-export type TripInputType = {
+export type AddTripInputType = {
   created_by?: ?string;
-  destination_name?: ?string;
+  from?: ?string;
+  to?: ?string;
   travel_time?: ?number;
 };
 
@@ -29,9 +30,9 @@ export type AddTripMutationResponse = {
 
 /*
 mutation AddTripMutation(
-  $trip: TripInputType!
+  $input: AddTripInputType!
 ) {
-  addTrip(trip: $trip) {
+  addTrip(input: $input) {
     id
   }
 }
@@ -42,8 +43,8 @@ const batch /*: ConcreteBatch*/ = {
     "argumentDefinitions": [
       {
         "kind": "LocalArgument",
-        "name": "trip",
-        "type": "TripInputType!",
+        "name": "input",
+        "type": "AddTripInputType!",
         "defaultValue": null
       }
     ],
@@ -57,9 +58,9 @@ const batch /*: ConcreteBatch*/ = {
         "args": [
           {
             "kind": "Variable",
-            "name": "trip",
-            "variableName": "trip",
-            "type": "TripInputType!"
+            "name": "input",
+            "variableName": "input",
+            "type": "AddTripInputType!"
           }
         ],
         "concreteType": "Trip",
@@ -87,8 +88,8 @@ const batch /*: ConcreteBatch*/ = {
     "argumentDefinitions": [
       {
         "kind": "LocalArgument",
-        "name": "trip",
-        "type": "TripInputType!",
+        "name": "input",
+        "type": "AddTripInputType!",
         "defaultValue": null
       }
     ],
@@ -102,9 +103,9 @@ const batch /*: ConcreteBatch*/ = {
         "args": [
           {
             "kind": "Variable",
-            "name": "trip",
-            "variableName": "trip",
-            "type": "TripInputType!"
+            "name": "input",
+            "variableName": "input",
+            "type": "AddTripInputType!"
           }
         ],
         "concreteType": "Trip",
@@ -123,7 +124,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "mutation AddTripMutation(\n  $trip: TripInputType!\n) {\n  addTrip(trip: $trip) {\n    id\n  }\n}\n"
+  "text": "mutation AddTripMutation(\n  $input: AddTripInputType!\n) {\n  addTrip(input: $input) {\n    id\n  }\n}\n"
 };
 
 module.exports = batch;

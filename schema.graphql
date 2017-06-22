@@ -3,31 +3,22 @@ schema {
   mutation: Mutation
 }
 
-type Friendship {
-  id: String
-  user_a: User
-  user_b: User
-  friendship_status: FriendshipStatus
-}
-
-type FriendshipStatus {
-  name: String
+input AddTripInputType {
+  created_by: String!
+  from: String!
+  to: String!
+  travel_time: Float!
 }
 
 type Mutation {
-  addUser(name: String!, oauth_id: String!): User
-  addFriendship(user_a: String!, user_b: String!): Friendship
-  addTrip(trip: TripInputType!): Trip
-  updateTrip(id: String!, destination_name: String, travel_time: Float, hitchhikers: [String]): Trip
+  addTrip(input: AddTripInputType!): Trip
+  updateTrip(input: UpdateTripInputType!): Trip
 }
 
 type RootQuery {
   user(id: String, access_token: String): User
-  users: [User]
   trip(id: String): Trip
-  trips: [Trip]
-  friendship(id: String): Friendship
-  friendships: [Friendship]
+  trips(created_by: String): [Trip]
 }
 
 type Trip {
@@ -39,22 +30,21 @@ type Trip {
   travel_time: Float
 }
 
-input TripInputType {
-  created_by: String!
-  from: String!
-  to: String!
-  travel_time: Float!
+input UpdateTripInputType {
+  id: String!
+  from: String
+  to: String
+  travel_time: Float
+  hitchhikers: [String]
 }
 
 type User {
-  access_token: String
   id: String
+  access_token: String
   is_admin: Boolean
   name: String
   oauth_id: String
   picture_url: String
   trips: [Trip]
-  friends: [User]
-  notFriends: [User]
 }
 
