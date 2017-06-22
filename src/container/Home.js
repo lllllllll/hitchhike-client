@@ -12,15 +12,7 @@ const query = graphql`
       picture_url
     }
     trips {
-      id
-      from
-      to
-      travel_time
-      hitchhikers {
-        id
-        name
-        picture_url
-      }
+      ...Home_trips
     }
   }
 `;
@@ -38,7 +30,7 @@ const Container = ({ cookieManager }) => {
         if (error) {
           return <div>{error.message}</div>;
         } else if (props) {
-          return <Home {...props} />;
+          return <Home trips={props.trips} />;
         }
         return <div>Loading...</div>;
       }}

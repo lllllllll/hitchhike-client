@@ -9,24 +9,6 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const FacebookButton = styled.button`
-  background-color: #4267b2;
-  border: 1px solid;
-  border-color: #4267b2;
-  border-radius: 3px;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-  padding: 1em 2em;
-  text-align: center;
-  width: 200px;
-
-  :disabled {
-    background-color: #829fd9;
-    border-color: #829fd9;
-  }
-`;
-
 const SignIn = props => {
   return (
     <Container className="signin-component">

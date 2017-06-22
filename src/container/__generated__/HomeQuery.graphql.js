@@ -3,8 +3,8 @@
  *   relay-compiler
  *
  * @providesModule HomeQuery.graphql
- * @generated SignedSource<<8c2a83d70d51798e0ae325a08a665dd2>>
- * @relayHash ce910417048970a2da03ca58e3f55fa3
+ * @generated SignedSource<<95668b0dc764e7155ff6d9e0cc4f8214>>
+ * @relayHash f9e2bdcbf33304319d8f6312f9ce2c6f
  * @flow
  * @nogrep
  */
@@ -30,15 +30,23 @@ query HomeQuery(
     picture_url
   }
   trips {
+    ...Home_trips
+  }
+}
+
+fragment Home_trips on Trip {
+  id
+  from
+  to
+  created_by {
     id
-    from
-    to
-    travel_time
-    hitchhikers {
-      id
-      name
-      picture_url
-    }
+    name
+    picture_url
+  }
+  hitchhikers {
+    id
+    name
+    picture_url
   }
 }
 */
@@ -112,64 +120,9 @@ const batch /*: ConcreteBatch*/ = {
         "plural": true,
         "selections": [
           {
-            "kind": "ScalarField",
-            "alias": null,
-            "args": null,
-            "name": "id",
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "args": null,
-            "name": "from",
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "args": null,
-            "name": "to",
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "args": null,
-            "name": "travel_time",
-            "storageKey": null
-          },
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "args": null,
-            "concreteType": "User",
-            "name": "hitchhikers",
-            "plural": true,
-            "selections": [
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "args": null,
-                "name": "id",
-                "storageKey": null
-              },
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "args": null,
-                "name": "name",
-                "storageKey": null
-              },
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "args": null,
-                "name": "picture_url",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
+            "kind": "FragmentSpread",
+            "name": "Home_trips",
+            "args": null
           }
         ],
         "storageKey": null
@@ -249,40 +202,8 @@ const batch /*: ConcreteBatch*/ = {
         "plural": true,
         "selections": [
           {
-            "kind": "ScalarField",
-            "alias": null,
-            "args": null,
-            "name": "id",
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "args": null,
-            "name": "from",
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "args": null,
-            "name": "to",
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "args": null,
-            "name": "travel_time",
-            "storageKey": null
-          },
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "args": null,
-            "concreteType": "User",
-            "name": "hitchhikers",
-            "plural": true,
+            "kind": "InlineFragment",
+            "type": "Trip",
             "selections": [
               {
                 "kind": "ScalarField",
@@ -295,25 +216,88 @@ const batch /*: ConcreteBatch*/ = {
                 "kind": "ScalarField",
                 "alias": null,
                 "args": null,
-                "name": "name",
+                "name": "from",
                 "storageKey": null
               },
               {
                 "kind": "ScalarField",
                 "alias": null,
                 "args": null,
-                "name": "picture_url",
+                "name": "to",
+                "storageKey": null
+              },
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "args": null,
+                "concreteType": "User",
+                "name": "created_by",
+                "plural": false,
+                "selections": [
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "id",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "name",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "picture_url",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "args": null,
+                "concreteType": "User",
+                "name": "hitchhikers",
+                "plural": true,
+                "selections": [
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "id",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "name",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "picture_url",
+                    "storageKey": null
+                  }
+                ],
                 "storageKey": null
               }
-            ],
-            "storageKey": null
+            ]
           }
         ],
         "storageKey": null
       }
     ]
   },
-  "text": "query HomeQuery(\n  $access_token: String\n) {\n  user(access_token: $access_token) {\n    id\n    name\n    is_admin\n    picture_url\n  }\n  trips {\n    id\n    from\n    to\n    travel_time\n    hitchhikers {\n      id\n      name\n      picture_url\n    }\n  }\n}\n"
+  "text": "query HomeQuery(\n  $access_token: String\n) {\n  user(access_token: $access_token) {\n    id\n    name\n    is_admin\n    picture_url\n  }\n  trips {\n    ...Home_trips\n  }\n}\n\nfragment Home_trips on Trip {\n  id\n  from\n  to\n  created_by {\n    id\n    name\n    picture_url\n  }\n  hitchhikers {\n    id\n    name\n    picture_url\n  }\n}\n"
 };
 
 module.exports = batch;
