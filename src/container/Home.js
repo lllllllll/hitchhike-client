@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Trips from '../component/Trips';
+import React from 'react';
+import Home from '../component/Home';
 import { QueryRenderer, graphql } from 'react-relay';
 import environment from '../environment';
 
@@ -9,68 +9,41 @@ const homeQuery = graphql`
       id
       name
       is_admin
-      trips {
+      picture_url
+    }
+    trips {
+      id
+      from
+      to
+      travel_time
+      hitchhikers {
         id
-        travel_time
-        from
-        to
-        created_by {
-          id
-          name
-          picture_url
-        }
-      }
-      friends {
-        trips {
-          id
-          travel_time
-          from
-          to
-          created_by {
-            id
-            name
-            picture_url
-          }
-          hitchhikers {
-            id
-            name
-            picture_url
-          }
-        }
+        name
+        picture_url
       }
     }
   }
 `;
 
-class Home extends Component {
-  render() {
-    return (
-      <QueryRenderer
-        environment={environment}
-        query={homeQuery}
-        variables={{
-          access_token: this.props.cookieManager.getToken()
-        }}
-        render={({ error, props }) => {
-          if (error) {
-            return <div>{error.message}</div>;
-          } else if (props) {
-            return (
-              <Trips
-                myTrips={props.user.trips}
-                friendTrips={props.user.friends
-                  .map(friend => friend.trips)
-                  .reduce((a, b) => {
-                    return a.concat(b);
-                  }, [])}
-              />
-            );
-          }
-          return <div>Loading...</div>;
-        }}
-      />
-    );
-  }
-}
+const container = ({ cookieManager }) => {
+  const variables = {
+    access_token: cookieManager.getToken()
+  };
+  return (
+    <QueryRenderer
+      environment={environment}
+      query={homeQuery}
+      variables={variables}
+      render={({ error, props }) => {
+        if (error) {
+          return <div>{error.message}</div>;
+        } else if (props) {
+          return <Home {...props} />;
+        }
+        return <div>Loading...</div>;
+      }}
+    />
+  );
+};
 
-export default Home;
+export default container;

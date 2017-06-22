@@ -14,8 +14,8 @@ const query = graphql`
 `;
 
 const mutation = graphql`
-  mutation AddTripMutation($trip: TripInputType!) {
-    addTrip(trip: $trip) {
+  mutation AddTripMutation($input: AddTripInputType!) {
+    addTrip(input: $input) {
       id
     }
   }

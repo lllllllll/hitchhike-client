@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import SignInContainer from './container/SignIn';
 import HomeContainer from './container/Home';
 import AddTripContainer from './container/AddTrip';
-import FriendContainer from './container/Friend';
 import CookieManager from './helper/CookieManager';
 
 const cookieManager = new CookieManager(docCookies);
@@ -46,23 +45,6 @@ class App extends Component {
                 );
               }
               return <AddTripContainer cookieManager={cookieManager} />;
-            }}
-          />
-          <Route
-            exact
-            path="/friend"
-            component={props => {
-              if (cookieManager.hasToken() === false) {
-                return (
-                  <Redirect
-                    to={{
-                      pathname: '/signin',
-                      state: { from: props.location }
-                    }}
-                  />
-                );
-              }
-              return <FriendContainer cookieManager={cookieManager} />;
             }}
           />
           <Route
