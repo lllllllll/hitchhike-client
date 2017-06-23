@@ -3,7 +3,11 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import Trips from './Trips';
 const Home = props =>
   <div>
-    <Trips trips={props.trips} />
+    <Trips
+      trips={props.trips}
+      user={props.user}
+      deleteButtonClickedCallback={props.removeTripHandler}
+    />
   </div>;
 
 export default createFragmentContainer(

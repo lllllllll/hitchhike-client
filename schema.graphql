@@ -13,6 +13,11 @@ input AddTripInputType {
 type Mutation {
   addTrip(input: AddTripInputType!): Trip
   updateTrip(input: UpdateTripInputType!): Trip
+  removeTrip(input: RemoveTripInputType!): Trip
+}
+
+input RemoveTripInputType {
+  id: String!
 }
 
 type RootQuery {

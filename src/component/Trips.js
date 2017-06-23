@@ -18,7 +18,7 @@ const DirectionalIcon = styled.div`
 `;
 
 const Trips = props => {
-  const { trips } = props;
+  const { trips, user } = props;
   return (
     <div>
       <ul>
@@ -74,7 +74,13 @@ const Trips = props => {
                   <a className="button is-primary">Join</a>
                 </p>
                 <p className="control">
-                  <a className="button is-danger is-outlined">Delete</a>
+                  <a
+                    className="button is-danger is-outlined"
+                    onClick={() =>
+                      props.deleteButtonClickedCallback(trip.id, user.id)}
+                  >
+                    Delete
+                  </a>
                 </p>
               </div>
             </div>
