@@ -21,7 +21,6 @@ const Trips = props => {
   const { trips } = props;
   return (
     <div>
-      <h1 className="title is-1">Trips</h1>
       <ul>
         {trips.map(trip =>
           <Item key={trip.id}>

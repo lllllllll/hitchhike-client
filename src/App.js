@@ -5,6 +5,7 @@ import SignInContainer from './container/SignIn';
 import HomeContainer from './container/Home';
 import AddTripContainer from './container/AddTrip';
 import CookieManager from './helper/CookieManager';
+import Toolbar from './component/Toolbar';
 
 const cookieManager = new CookieManager(docCookies);
 
@@ -14,44 +15,47 @@ class App extends Component {
       <Router>
         <div>
           <Route
-            exact
-            path="/"
-            component={props => {
-              if (cookieManager.hasToken() === false) {
-                return (
-                  <Redirect
-                    to={{
-                      pathname: '/signin',
-                      state: { from: props.location }
-                    }}
-                  />
-                );
-              }
-              return <HomeContainer cookieManager={cookieManager} />;
-            }}
-          />
-          <Route
-            exact
-            path="/addtrip"
-            component={props => {
-              if (cookieManager.hasToken() === false) {
-                return (
-                  <Redirect
-                    to={{
-                      pathname: '/signin',
-                      state: { from: props.location }
-                    }}
-                  />
-                );
-              }
-              return <AddTripContainer cookieManager={cookieManager} />;
-            }}
-          />
-          <Route
             path="/signin"
             component={props =>
               <SignInContainer cookieManager={cookieManager} />}
           />
+          <div>
+            <Toolbar />
+            <Route
+              exact
+              path="/"
+              component={props => {
+                if (cookieManager.hasToken() === false) {
+                  return (
+                    <Redirect
+                      to={{
+                        pathname: '/signin',
+                        state: { from: props.location }
+                      }}
+                    />
+                  );
+                }
+                return <HomeContainer cookieManager={cookieManager} />;
+              }}
+            />
+            <Route
+              exact
+              path="/addtrip"
+              component={props => {
+                if (cookieManager.hasToken() === false) {
+                  return (
+                    <Redirect
+                      to={{
+                        pathname: '/signin',
+                        state: { from: props.location }
+                      }}
+                    />
+                  );
+                }
+                return <AddTripContainer cookieManager={cookieManager} />;
+              }}
+            />
+          </div>
         </div>
       </Router>
     );
