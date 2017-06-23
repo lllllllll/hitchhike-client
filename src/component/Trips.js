@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const Item = styled.li`
+  margin: 0 0 16px 0;
+`;
+
 const ProfilePicture = styled.img`
   width: 30px;
   height: 30px;
@@ -13,10 +17,6 @@ const DirectionalIcon = styled.div`
   justify-content: center;
 `;
 
-const Hitchhiker = styled.div`
-  margin: 8px 0;
-`;
-
 const Trips = props => {
   const { trips } = props;
   return (
@@ -24,7 +24,7 @@ const Trips = props => {
       <h1 className="title is-1">Trips</h1>
       <ul>
         {trips.map(trip =>
-          <li key={trip.id}>
+          <Item key={trip.id}>
             <div className="box">
               <div className="level">
                 <div className="level-left">
@@ -79,7 +79,7 @@ const Trips = props => {
                 </p>
               </div>
             </div>
-          </li>
+          </Item>
         )}
       </ul>
     </div>
