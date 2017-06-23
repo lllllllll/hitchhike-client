@@ -1,62 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const Avatar = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 const ProfilePicture = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   border-radius: 100%;
 `;
 
-const Name = styled.strong`
-  margin: 0 0 0 1em;
-`;
-
-const JoinButton = styled.button`
-  border: none;
-  background-color: transparent;
+const DirectionalIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-const TripItem = styled.div`
-  border: 1px solid grey;
-  margin: 0 0 1em 0;
-`;
-
-const Destination = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-`;
-
-const PlaceName = styled.div`
-  width: 120px;
-  height: 4em;
-  text-align: center;
-  border: 1px solid grey;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-`;
-
-const HitchhikerContainer = styled.div`
-
+const Hitchhiker = styled.div`
+  margin: 8px 0;
 `;
 
 const Trips = props => {
-  console.log(props);
   const { trips } = props;
   return (
     <div>
@@ -64,38 +25,60 @@ const Trips = props => {
       <ul>
         {trips.map(trip =>
           <li key={trip.id}>
-            <TripItem>
-              <Header>
-                <Avatar>
-                  <ProfilePicture
-                    src={trip.created_by.picture_url}
-                    alt={trip.created_by.name}
-                  />
-                  <Name>{trip.created_by.name}</Name>
-                </Avatar>
-                <JoinButton>
-                  <i className="material-icons">add_circle_outline</i>
-                </JoinButton>
-              </Header>
-              <Destination>
-                <PlaceName>
-                  <strong>{trip.from}</strong>
-                  <small>From</small>
-                </PlaceName>
-                <strong>></strong>
-                <PlaceName>
-                  <strong>{trip.to}</strong>
-                  <small>To</small>
-                </PlaceName>
-              </Destination>
-              <HitchhikerContainer>
-                {trip.hitchhikers.map(hitchhiker =>
-                  <li key={hitchhiker.id}>
-                    <strong>ท{hitchhiker.name}</strong>
-                  </li>
-                )}
-              </HitchhikerContainer>
-            </TripItem>
+            <div className="box">
+              <div className="level">
+                <div className="level-left">
+                  <div className="level-item">
+                    <ProfilePicture
+                      src={trip.created_by.picture_url}
+                      alt={trip.created_by.name}
+                    />
+                    <p className="card-header-title">{trip.created_by.name}</p>
+                  </div>
+                </div>
+                <div className="level-right" />
+              </div>
+              <div className="columns is-mobile is-gapless">
+                <div className="column is-5-mobile">
+                  <div className="box">
+                    <p><strong>{trip.from}</strong></p>
+                    <p><small>From</small></p>
+                  </div>
+                </div>
+                <DirectionalIcon className="column is-2-mobile">
+                  >
+                </DirectionalIcon>
+                <div className="column is-5-mobile">
+                  <div className="box">
+                    <p><strong>{trip.to}</strong></p>
+                    <p><small>To</small></p>
+                  </div>
+                </div>
+              </div>
+              <div className="level">
+                <div className="level-left">
+                  {trip.hitchhikers.length === 0 && <strong>No member</strong>}
+                  {trip.hitchhikers.length > 0 &&
+                    trip.hitchhikers.map(hitchhiker =>
+                      <span key={hitchhiker.id}>
+                        <ProfilePicture
+                          src={hitchhiker.picture_url}
+                          alt={hitchhiker.name}
+                        />
+                      </span>
+                    )}
+                </div>
+                <div className="level-right" />
+              </div>
+              <div className="field is-grouped">
+                <p className="control">
+                  <a className="button is-primary">Join</a>
+                </p>
+                <p className="control">
+                  <a className="button is-danger is-outlined">Delete</a>
+                </p>
+              </div>
+            </div>
           </li>
         )}
       </ul>
