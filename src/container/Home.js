@@ -54,7 +54,7 @@ class Container extends React.Component {
         const userProxy = store.get(user_id);
         const connection = ConnectionHandler.getConnection(
           userProxy,
-          'UserTripsConnection',
+          'user_trips',
         );
         ConnectionHandler.deleteNode(connection, deletedId);
       },
