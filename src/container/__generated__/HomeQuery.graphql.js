@@ -3,8 +3,8 @@
  *   relay-compiler
  *
  * @providesModule HomeQuery.graphql
- * @generated SignedSource<<75bb57748715aaf92b1149c3f345cac8>>
- * @relayHash 9c820d99125edf5478cf3a11226a8132
+ * @generated SignedSource<<725c9f71d3be7a4104354e665d2511ba>>
+ * @relayHash 8be086c798f8316953767a9cdb802476
  * @flow
  * @nogrep
  */
@@ -28,25 +28,34 @@ query HomeQuery(
     name
     is_admin
     picture_url
-    trips {
-      ...Home_trips
+    trips(first: 10) {
+      edges {
+        node {
+          id
+          from
+          to
+          travel_time
+          created_by {
+            id
+            name
+            picture_url
+          }
+          hitchhikers {
+            id
+            name
+            picture_url
+          }
+          __typename
+        }
+        cursor
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
     }
-  }
-}
-
-fragment Home_trips on Trip {
-  id
-  from
-  to
-  created_by {
-    id
-    name
-    picture_url
-  }
-  hitchhikers {
-    id
-    name
-    picture_url
   }
 }
 */
@@ -110,16 +119,125 @@ const batch /*: ConcreteBatch*/ = {
           },
           {
             "kind": "LinkedField",
-            "alias": null,
+            "alias": "trips",
             "args": null,
-            "concreteType": "Trip",
-            "name": "trips",
-            "plural": true,
+            "concreteType": "UserTripsConnection",
+            "name": "__user_trips_connection",
+            "plural": false,
             "selections": [
               {
-                "kind": "FragmentSpread",
-                "name": "Home_trips",
-                "args": null
+                "kind": "LinkedField",
+                "alias": null,
+                "args": null,
+                "concreteType": "UserTripsEdge",
+                "name": "edges",
+                "plural": true,
+                "selections": [
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Trip",
+                    "name": "node",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "id",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "from",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "to",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "travel_time",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "User",
+                        "name": "created_by",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "args": null,
+                            "name": "id",
+                            "storageKey": null
+                          },
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "args": null,
+                            "name": "name",
+                            "storageKey": null
+                          },
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "args": null,
+                            "name": "picture_url",
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "User",
+                        "name": "hitchhikers",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "args": null,
+                            "name": "id",
+                            "storageKey": null
+                          },
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "args": null,
+                            "name": "name",
+                            "storageKey": null
+                          },
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "args": null,
+                            "name": "picture_url",
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -132,7 +250,19 @@ const batch /*: ConcreteBatch*/ = {
   },
   "id": null,
   "kind": "Batch",
-  "metadata": {},
+  "metadata": {
+    "connection": [
+      {
+        "count": null,
+        "cursor": null,
+        "direction": "forward",
+        "path": [
+          "user",
+          "trips"
+        ]
+      }
+    ]
+  },
   "name": "HomeQuery",
   "query": {
     "argumentDefinitions": [
@@ -193,42 +323,32 @@ const batch /*: ConcreteBatch*/ = {
           {
             "kind": "LinkedField",
             "alias": null,
-            "args": null,
-            "concreteType": "Trip",
+            "args": [
+              {
+                "kind": "Literal",
+                "name": "first",
+                "value": 10,
+                "type": "Int"
+              }
+            ],
+            "concreteType": "UserTripsConnection",
             "name": "trips",
-            "plural": true,
+            "plural": false,
             "selections": [
               {
-                "kind": "InlineFragment",
-                "type": "Trip",
+                "kind": "LinkedField",
+                "alias": null,
+                "args": null,
+                "concreteType": "UserTripsEdge",
+                "name": "edges",
+                "plural": true,
                 "selections": [
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "args": null,
-                    "name": "id",
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "args": null,
-                    "name": "from",
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "args": null,
-                    "name": "to",
-                    "storageKey": null
-                  },
                   {
                     "kind": "LinkedField",
                     "alias": null,
                     "args": null,
-                    "concreteType": "User",
-                    "name": "created_by",
+                    "concreteType": "Trip",
+                    "name": "node",
                     "plural": false,
                     "selections": [
                       {
@@ -242,62 +362,171 @@ const batch /*: ConcreteBatch*/ = {
                         "kind": "ScalarField",
                         "alias": null,
                         "args": null,
-                        "name": "name",
+                        "name": "from",
                         "storageKey": null
                       },
                       {
                         "kind": "ScalarField",
                         "alias": null,
                         "args": null,
-                        "name": "picture_url",
+                        "name": "to",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "travel_time",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "User",
+                        "name": "created_by",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "args": null,
+                            "name": "id",
+                            "storageKey": null
+                          },
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "args": null,
+                            "name": "name",
+                            "storageKey": null
+                          },
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "args": null,
+                            "name": "picture_url",
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "User",
+                        "name": "hitchhikers",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "args": null,
+                            "name": "id",
+                            "storageKey": null
+                          },
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "args": null,
+                            "name": "name",
+                            "storageKey": null
+                          },
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "args": null,
+                            "name": "picture_url",
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "__typename",
                         "storageKey": null
                       }
                     ],
                     "storageKey": null
                   },
                   {
-                    "kind": "LinkedField",
+                    "kind": "ScalarField",
                     "alias": null,
                     "args": null,
-                    "concreteType": "User",
-                    "name": "hitchhikers",
-                    "plural": true,
-                    "selections": [
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "args": null,
-                        "name": "id",
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "args": null,
-                        "name": "name",
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "args": null,
-                        "name": "picture_url",
-                        "storageKey": null
-                      }
-                    ],
+                    "name": "cursor",
                     "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": null
+              },
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "args": null,
+                "concreteType": "PageInfo",
+                "name": "pageInfo",
+                "plural": false,
+                "selections": [
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "endCursor",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "hasNextPage",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "hasPreviousPage",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "startCursor",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
               }
             ],
-            "storageKey": null
+            "storageKey": "trips{\"first\":10}"
+          },
+          {
+            "kind": "LinkedHandle",
+            "alias": null,
+            "args": [
+              {
+                "kind": "Literal",
+                "name": "first",
+                "value": 10,
+                "type": "Int"
+              }
+            ],
+            "handle": "connection",
+            "name": "trips",
+            "key": "user_trips",
+            "filters": []
           }
         ],
         "storageKey": null
       }
     ]
   },
-  "text": "query HomeQuery(\n  $access_token: String\n) {\n  user(access_token: $access_token) {\n    id\n    name\n    is_admin\n    picture_url\n    trips {\n      ...Home_trips\n    }\n  }\n}\n\nfragment Home_trips on Trip {\n  id\n  from\n  to\n  created_by {\n    id\n    name\n    picture_url\n  }\n  hitchhikers {\n    id\n    name\n    picture_url\n  }\n}\n"
+  "text": "query HomeQuery(\n  $access_token: String\n) {\n  user(access_token: $access_token) {\n    id\n    name\n    is_admin\n    picture_url\n    trips(first: 10) {\n      edges {\n        node {\n          id\n          from\n          to\n          travel_time\n          created_by {\n            id\n            name\n            picture_url\n          }\n          hitchhikers {\n            id\n            name\n            picture_url\n          }\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n  }\n}\n"
 };
 
 module.exports = batch;

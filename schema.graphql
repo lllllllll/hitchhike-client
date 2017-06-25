@@ -3,7 +3,7 @@ schema {
   mutation: Mutation
 }
 
-input AddTripInputType {
+input AddTripInput {
   created_by: String!
   from: String!
   to: String!
@@ -11,12 +11,19 @@ input AddTripInputType {
 }
 
 type Mutation {
-  addTrip(input: AddTripInputType!): Trip
-  updateTrip(input: UpdateTripInputType!): Trip
-  removeTrip(input: RemoveTripInputType!): Trip
+  addTrip(input: AddTripInput!): Trip
+  updateTrip(input: UpdateTripInput!): Trip
+  removeTrip(input: RemoveTripInput!): Trip
 }
 
-input RemoveTripInputType {
+type PageInfo {
+  hasPreviousPage: Boolean!
+  hasNextPage: Boolean!
+  startCursor: String!
+  endCursor: String!
+}
+
+input RemoveTripInput {
   id: String!
 }
 
@@ -28,6 +35,7 @@ type RootQuery {
 
 type Trip {
   id: String
+  created_at: Float
   created_by: User
   from: String
   to: String
@@ -35,7 +43,7 @@ type Trip {
   travel_time: Float
 }
 
-input UpdateTripInputType {
+input UpdateTripInput {
   id: String!
   from: String
   to: String
@@ -50,6 +58,16 @@ type User {
   name: String
   oauth_id: String
   picture_url: String
-  trips: [Trip]
+  trips(first: Int, after: String): UserTripsConnection
+}
+
+type UserTripsConnection {
+  edges: [UserTripsEdge]
+  pageInfo: PageInfo
+}
+
+type UserTripsEdge {
+  cursor: String!
+  node: Trip
 }
 

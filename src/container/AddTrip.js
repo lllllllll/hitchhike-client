@@ -14,7 +14,7 @@ const query = graphql`
 `;
 
 const mutation = graphql`
-  mutation AddTripMutation($input: AddTripInputType!) {
+  mutation AddTripMutation($input: AddTripInput!) {
     addTrip(input: $input) {
       id
     }
@@ -27,7 +27,7 @@ class AddTrip extends Component {
     to: '',
     date: '',
     time: '',
-    isFinished: false
+    isFinished: false,
   };
   inputChangeHandler(key) {
     return e => this.setState({ [key]: e.target.value });
@@ -42,11 +42,11 @@ class AddTrip extends Component {
             created_by: user_id,
             from: this.state.from,
             to: this.state.to,
-            travel_time: new Date().getTime()
-          }
+            travel_time: new Date().getTime(),
+          },
         },
         onCompleted: () => this.setState({ isFinished: true }),
-        onError: error => console.error(error)
+        onError: error => console.error(error),
       });
     };
   }
@@ -56,7 +56,7 @@ class AddTrip extends Component {
         <Redirect
           to={{
             pathname: '/',
-            state: { from: this.props.location }
+            state: { from: this.props.location },
           }}
         />
       );
@@ -66,7 +66,7 @@ class AddTrip extends Component {
         environment={environment}
         query={query}
         variables={{
-          access_token: this.props.cookieManager.getToken()
+          access_token: this.props.cookieManager.getToken(),
         }}
         render={({ error, props }) => {
           if (error) {

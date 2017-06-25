@@ -3,8 +3,8 @@
  *   relay-compiler
  *
  * @providesModule HomeMutation.graphql
- * @generated SignedSource<<4264e899eed662870ca8953571e03710>>
- * @relayHash eb414172b998640ff35499e4ff186bfe
+ * @generated SignedSource<<2491d9b02deedca17c44d02ef98c78fd>>
+ * @relayHash d5fd424f274b910329a32e4da4c42387
  * @flow
  * @nogrep
  */
@@ -15,7 +15,7 @@
 
 /*::
 import type {ConcreteBatch} from 'relay-runtime';
-export type RemoveTripInputType = {
+export type RemoveTripInput = {
   id?: ?string;
 };
 
@@ -27,7 +27,7 @@ export type HomeMutationResponse = {
 
 /*
 mutation HomeMutation(
-  $input: RemoveTripInputType!
+  $input: RemoveTripInput!
 ) {
   removeTrip(input: $input) {
     id
@@ -41,7 +41,7 @@ const batch /*: ConcreteBatch*/ = {
       {
         "kind": "LocalArgument",
         "name": "input",
-        "type": "RemoveTripInputType!",
+        "type": "RemoveTripInput!",
         "defaultValue": null
       }
     ],
@@ -57,7 +57,7 @@ const batch /*: ConcreteBatch*/ = {
             "kind": "Variable",
             "name": "input",
             "variableName": "input",
-            "type": "RemoveTripInputType!"
+            "type": "RemoveTripInput!"
           }
         ],
         "concreteType": "Trip",
@@ -86,7 +86,7 @@ const batch /*: ConcreteBatch*/ = {
       {
         "kind": "LocalArgument",
         "name": "input",
-        "type": "RemoveTripInputType!",
+        "type": "RemoveTripInput!",
         "defaultValue": null
       }
     ],
@@ -102,7 +102,7 @@ const batch /*: ConcreteBatch*/ = {
             "kind": "Variable",
             "name": "input",
             "variableName": "input",
-            "type": "RemoveTripInputType!"
+            "type": "RemoveTripInput!"
           }
         ],
         "concreteType": "Trip",
@@ -121,7 +121,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "mutation HomeMutation(\n  $input: RemoveTripInputType!\n) {\n  removeTrip(input: $input) {\n    id\n  }\n}\n"
+  "text": "mutation HomeMutation(\n  $input: RemoveTripInput!\n) {\n  removeTrip(input: $input) {\n    id\n  }\n}\n"
 };
 
 module.exports = batch;

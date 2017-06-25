@@ -3,7 +3,7 @@
  *   relay-compiler
  *
  * @providesModule Home_trips.graphql
- * @generated SignedSource<<8a24f40e26dcf601cfb70ad788bf52d6>>
+ * @generated SignedSource<<ed2786bbd3fc6015075519a6e7312c81>>
  * @flow
  * @nogrep
  */
@@ -15,19 +15,26 @@
 /*::
 import type {ConcreteFragment} from 'relay-runtime';
 export type Home_trips = {|
-  +id: ?string;
-  +from: ?string;
-  +to: ?string;
-  +created_by: ?{|
-    +id: ?string;
-    +name: ?string;
-    +picture_url: ?string;
+  +trips: ?{|
+    +edges: ?$ReadOnlyArray<?{|
+      +node: ?{|
+        +id: ?string;
+        +from: ?string;
+        +to: ?string;
+        +travel_time: ?number;
+        +created_by: ?{|
+          +id: ?string;
+          +name: ?string;
+          +picture_url: ?string;
+        |};
+        +hitchhikers: ?$ReadOnlyArray<?{|
+          +id: ?string;
+          +name: ?string;
+          +picture_url: ?string;
+        |}>;
+      |};
+    |}>;
   |};
-  +hitchhikers: ?$ReadOnlyArray<?{|
-    +id: ?string;
-    +name: ?string;
-    +picture_url: ?string;
-  |}>;
 |};
 */
 
@@ -36,97 +43,146 @@ const fragment /*: ConcreteFragment*/ = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": {
-    "plural": true
+    "connection": [
+      {
+        "count": null,
+        "cursor": null,
+        "direction": "forward",
+        "path": [
+          "trips"
+        ]
+      }
+    ]
   },
   "name": "Home_trips",
   "selections": [
     {
-      "kind": "ScalarField",
-      "alias": null,
-      "args": null,
-      "name": "id",
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "args": null,
-      "name": "from",
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "args": null,
-      "name": "to",
-      "storageKey": null
-    },
-    {
       "kind": "LinkedField",
-      "alias": null,
+      "alias": "trips",
       "args": null,
-      "concreteType": "User",
-      "name": "created_by",
+      "concreteType": "UserTripsConnection",
+      "name": "__user_trips_connection",
       "plural": false,
       "selections": [
         {
-          "kind": "ScalarField",
+          "kind": "LinkedField",
           "alias": null,
           "args": null,
-          "name": "id",
-          "storageKey": null
-        },
-        {
-          "kind": "ScalarField",
-          "alias": null,
-          "args": null,
-          "name": "name",
-          "storageKey": null
-        },
-        {
-          "kind": "ScalarField",
-          "alias": null,
-          "args": null,
-          "name": "picture_url",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "kind": "LinkedField",
-      "alias": null,
-      "args": null,
-      "concreteType": "User",
-      "name": "hitchhikers",
-      "plural": true,
-      "selections": [
-        {
-          "kind": "ScalarField",
-          "alias": null,
-          "args": null,
-          "name": "id",
-          "storageKey": null
-        },
-        {
-          "kind": "ScalarField",
-          "alias": null,
-          "args": null,
-          "name": "name",
-          "storageKey": null
-        },
-        {
-          "kind": "ScalarField",
-          "alias": null,
-          "args": null,
-          "name": "picture_url",
+          "concreteType": "UserTripsEdge",
+          "name": "edges",
+          "plural": true,
+          "selections": [
+            {
+              "kind": "LinkedField",
+              "alias": null,
+              "args": null,
+              "concreteType": "Trip",
+              "name": "node",
+              "plural": false,
+              "selections": [
+                {
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "args": null,
+                  "name": "id",
+                  "storageKey": null
+                },
+                {
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "args": null,
+                  "name": "from",
+                  "storageKey": null
+                },
+                {
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "args": null,
+                  "name": "to",
+                  "storageKey": null
+                },
+                {
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "args": null,
+                  "name": "travel_time",
+                  "storageKey": null
+                },
+                {
+                  "kind": "LinkedField",
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "User",
+                  "name": "created_by",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "kind": "ScalarField",
+                      "alias": null,
+                      "args": null,
+                      "name": "id",
+                      "storageKey": null
+                    },
+                    {
+                      "kind": "ScalarField",
+                      "alias": null,
+                      "args": null,
+                      "name": "name",
+                      "storageKey": null
+                    },
+                    {
+                      "kind": "ScalarField",
+                      "alias": null,
+                      "args": null,
+                      "name": "picture_url",
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
+                },
+                {
+                  "kind": "LinkedField",
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "User",
+                  "name": "hitchhikers",
+                  "plural": true,
+                  "selections": [
+                    {
+                      "kind": "ScalarField",
+                      "alias": null,
+                      "args": null,
+                      "name": "id",
+                      "storageKey": null
+                    },
+                    {
+                      "kind": "ScalarField",
+                      "alias": null,
+                      "args": null,
+                      "name": "name",
+                      "storageKey": null
+                    },
+                    {
+                      "kind": "ScalarField",
+                      "alias": null,
+                      "args": null,
+                      "name": "picture_url",
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         }
       ],
       "storageKey": null
     }
   ],
-  "type": "Trip"
+  "type": "User"
 };
 
 module.exports = fragment;

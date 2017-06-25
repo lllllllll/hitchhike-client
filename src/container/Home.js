@@ -5,21 +5,38 @@ import { ConnectionHandler } from 'relay-runtime';
 import environment from '../environment';
 
 const query = graphql`
-  query HomeQuery($access_token: String){
+  query HomeQuery($access_token: String) {
     user(access_token: $access_token) {
       id
       name
       is_admin
       picture_url
-      trips {
-        ...Home_trips
+      trips(first: 10) @connection(key: "user_trips", filters: []) {
+        edges {
+          node {
+            id
+            from
+            to
+            travel_time
+            created_by {
+              id
+              name
+              picture_url
+            }
+            hitchhikers {
+              id
+              name
+              picture_url
+            }
+          }
+        }
       }
     }
   }
 `;
 
 const mutation = graphql`
-  mutation HomeMutation($input: RemoveTripInputType!) {
+  mutation HomeMutation($input: RemoveTripInput!) {
     removeTrip(input: $input) {
       id
     }
@@ -32,23 +49,22 @@ class Container extends React.Component {
       mutation,
       variables: { input: { id } },
       updater: store => {
-        debugger;
         const payload = store.getRootField('removeTrip');
         const deletedId = payload.getValue('id');
         const userProxy = store.get(user_id);
         const connection = ConnectionHandler.getConnection(
           userProxy,
-          'Home_trips'
+          'UserTripsConnection',
         );
         ConnectionHandler.deleteNode(connection, deletedId);
       },
       onCompleted: () => console.log('removeTrip completed'),
-      onError: error => console.error(error)
+      onError: error => console.error(error),
     });
   };
   render() {
     const variables = {
-      access_token: this.props.cookieManager.getToken()
+      access_token: this.props.cookieManager.getToken(),
     };
     return (
       <QueryRenderer
@@ -59,6 +75,7 @@ class Container extends React.Component {
           if (error) {
             return <div>{error.message}</div>;
           } else if (props) {
+            console.log('home', props);
             return (
               <Home
                 user={props.user}

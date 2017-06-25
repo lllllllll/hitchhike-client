@@ -3,8 +3,8 @@
  *   relay-compiler
  *
  * @providesModule AddTripMutation.graphql
- * @generated SignedSource<<be8fd3a1f64b80b55e5c097e9e210e61>>
- * @relayHash 7a198f93a37bbd7e7be95eeb44a2877e
+ * @generated SignedSource<<6738244e3b1817243ff9deef37d6355d>>
+ * @relayHash e413a984689344d02f055151c728f765
  * @flow
  * @nogrep
  */
@@ -15,7 +15,7 @@
 
 /*::
 import type {ConcreteBatch} from 'relay-runtime';
-export type AddTripInputType = {
+export type AddTripInput = {
   created_by?: ?string;
   from?: ?string;
   to?: ?string;
@@ -30,7 +30,7 @@ export type AddTripMutationResponse = {
 
 /*
 mutation AddTripMutation(
-  $input: AddTripInputType!
+  $input: AddTripInput!
 ) {
   addTrip(input: $input) {
     id
@@ -44,7 +44,7 @@ const batch /*: ConcreteBatch*/ = {
       {
         "kind": "LocalArgument",
         "name": "input",
-        "type": "AddTripInputType!",
+        "type": "AddTripInput!",
         "defaultValue": null
       }
     ],
@@ -60,7 +60,7 @@ const batch /*: ConcreteBatch*/ = {
             "kind": "Variable",
             "name": "input",
             "variableName": "input",
-            "type": "AddTripInputType!"
+            "type": "AddTripInput!"
           }
         ],
         "concreteType": "Trip",
@@ -89,7 +89,7 @@ const batch /*: ConcreteBatch*/ = {
       {
         "kind": "LocalArgument",
         "name": "input",
-        "type": "AddTripInputType!",
+        "type": "AddTripInput!",
         "defaultValue": null
       }
     ],
@@ -105,7 +105,7 @@ const batch /*: ConcreteBatch*/ = {
             "kind": "Variable",
             "name": "input",
             "variableName": "input",
-            "type": "AddTripInputType!"
+            "type": "AddTripInput!"
           }
         ],
         "concreteType": "Trip",
@@ -124,7 +124,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "mutation AddTripMutation(\n  $input: AddTripInputType!\n) {\n  addTrip(input: $input) {\n    id\n  }\n}\n"
+  "text": "mutation AddTripMutation(\n  $input: AddTripInput!\n) {\n  addTrip(input: $input) {\n    id\n  }\n}\n"
 };
 
 module.exports = batch;

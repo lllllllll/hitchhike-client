@@ -64,7 +64,7 @@ const Trips = props => {
                           src={hitchhiker.picture_url}
                           alt={hitchhiker.name}
                         />
-                      </span>
+                      </span>,
                     )}
                 </div>
                 <div className="level-right" />
@@ -84,7 +84,7 @@ const Trips = props => {
                 </p>
               </div>
             </div>
-          </Item>
+          </Item>,
         )}
       </ul>
     </div>
@@ -92,7 +92,7 @@ const Trips = props => {
 };
 
 Trips.defaultProps = {
-  trips: []
+  trips: [],
 };
 
 export default Trips;
