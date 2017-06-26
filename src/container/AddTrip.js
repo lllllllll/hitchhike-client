@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { commitMutation, graphql, QueryRenderer } from 'react-relay';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import environment from '../environment';
 
 const query = graphql`
@@ -135,7 +135,9 @@ class AddTrip extends Component {
                       </button>
                     </p>
                     <p className="control">
-                      <button className="button is-link">Cancel</button>
+                      <Link to="/" className="button is-link">
+                        Cancel
+                      </Link>
                     </p>
                   </div>
                 </form>
