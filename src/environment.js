@@ -7,20 +7,18 @@ const network = Network.create((operation, variables) => {
     method: 'POST',
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       query: operation.text,
-      variables
-    })
-  }).then(response => {
-    return response.json();
-  });
+      variables,
+    }),
+  }).then(response => response.json());
 });
 
 const environment = new Environment({
   network,
-  store
+  store,
 });
 
 export default environment;

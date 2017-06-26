@@ -1,4 +1,5 @@
 import React from 'react';
+import { createFragmentContainer, graphql } from 'react-relay';
 import styled from 'styled-components';
 
 const Item = styled.li`
@@ -18,7 +19,9 @@ const DirectionalIcon = styled.div`
 `;
 
 const Trips = props => {
-  const { trips, user } = props;
+  console.log(props);
+  const { viewer } = props;
+  const trips = props.viewer.trips.edges.map(edge => edge.node);
   return (
     <div>
       <ul>
@@ -77,7 +80,7 @@ const Trips = props => {
                   <a
                     className="button is-danger is-outlined"
                     onClick={() =>
-                      props.deleteButtonClickedCallback(trip.id, user.id)}
+                      props.deleteButtonClickedCallback(trip.id, viewer.id)}
                   >
                     Delete
                   </a>
@@ -95,4 +98,31 @@ Trips.defaultProps = {
   trips: [],
 };
 
-export default Trips;
+export default createFragmentContainer(Trips, {
+  viewer: graphql`
+  fragment Trips_viewer on User {
+    id
+    trips(first: 10) @connection(key: "Trips_trips", filters: []) {
+      edges {
+        node {
+          created_at
+          id
+          from
+          to
+          travel_time
+          hitchhikers {
+            id
+            name
+            picture_url
+          }
+          created_by {
+            id
+            name
+            picture_url
+          }
+        }
+      }
+    }
+  }
+`,
+});

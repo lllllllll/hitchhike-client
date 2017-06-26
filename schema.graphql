@@ -28,7 +28,7 @@ input RemoveTripInput {
 }
 
 type RootQuery {
-  user(id: String, access_token: String): User
+  viewer(access_token: String!): User
   trip(id: String): Trip
   trips(created_by: String): [Trip]
 }

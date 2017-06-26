@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom';
 import environment from '../environment';
 
 const query = graphql`
-  query AddTripQuery($access_token: String){
-    user(access_token: $access_token) {
+  query AddTripQuery($access_token: String!){
+    viewer(access_token: $access_token) {
       id
       name
       is_admin
@@ -71,7 +71,8 @@ class AddTrip extends Component {
         render={({ error, props }) => {
           if (error) {
             return <div>{error.message}</div>;
-          } else if (props) {
+          }
+          if (props) {
             return (
               <div>
                 <h1 className="title">Begin a trip!</h1>
@@ -127,7 +128,7 @@ class AddTrip extends Component {
                   <div className="field is-grouped">
                     <p className="control">
                       <button
-                        onClick={this.addTrip(props.user.id)}
+                        onClick={this.addTrip(props.viewer.id)}
                         className="button is-primary"
                       >
                         Submit
