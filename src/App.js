@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import docCookies from 'doc-cookies';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { QueryRenderer, graphql } from 'react-relay';
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 import HomeContainer from './container/Home';
-import AddTripContainer from './container/AddTrip';
 import CookieManager from './helper/CookieManager';
-import Toolbar from './component/Toolbar';
 
 const cookieManager = new CookieManager(docCookies);
 
@@ -55,7 +53,6 @@ class App extends Component {
             return <div>{error.message}</div>;
           }
           if (props) {
-            console.log('home', props);
             return <HomeContainer {...props} cookieManager={cookieManager} />;
           }
           return <div>Loading...</div>;
