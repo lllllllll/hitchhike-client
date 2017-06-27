@@ -1,8 +1,12 @@
 import React from 'react';
-import Home from '../component/Home';
-import { QueryRenderer, graphql, commitMutation } from 'react-relay';
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
+import { QueryRenderer, graphql } from 'react-relay';
+import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 import { ConnectionHandler } from 'relay-runtime';
+import Home from '../component/Home';
+import Trips from '../component/Trips';
 import environment from '../environment';
+import AddTripContainer from './AddTrip';
 
 // const query = graphql`
 //   query HomeQuery($access_token: String) {
@@ -26,53 +30,29 @@ const mutation = graphql`
 
 class Container extends React.Component {
   removeTrip = (id, user_id) => {
-    commitMutation(environment, {
-      mutation,
-      variables: { input: { id } },
-      updater: store => {
-        const payload = store.getRootField('removeTrip');
-        const deletedId = payload.getValue('id');
-        const userProxy = store.get(user_id);
-        const connection = ConnectionHandler.getConnection(
-          userProxy,
-          'Trips_trips',
-        );
-        ConnectionHandler.deleteNode(connection, deletedId);
-      },
-      onCompleted: () => console.log('removeTrip completed'),
-      onError: error => console.error(error),
-    });
+    // commitMutation(environment, {
+    //   mutation,
+    //   variables: { input: { id } },
+    //   updater: store => {
+    //     const payload = store.getRootField('removeTrip');
+    //     const deletedId = payload.getValue('id');
+    //     const userProxy = store.get(user_id);
+    //     const connection = ConnectionHandler.getConnection(
+    //       userProxy,
+    //       'Trips_trips'
+    //     );
+    //     ConnectionHandler.deleteNode(connection, deletedId);
+    //   },
+    //   onCompleted: () => console.log('removeTrip completed'),
+    //   onError: error => console.error(error)
+    // });
   };
   render() {
+    console.log('home props', this.props);
     return (
-      <QueryRenderer
-        environment={environment}
-        query={graphql`
-          query HomeQuery($access_token: String!) {
-            viewer(access_token: $access_token) {
-              id
-              name
-              picture_url
-              ...Trips_viewer
-            }
-          }
-        `}
-        variables={{
-          access_token: this.props.cookieManager.getToken(),
-        }}
-        render={({ error, props }) => {
-          if (error) {
-            return <div>{error.message}</div>;
-          }
-          if (props) {
-            console.log('home', props);
-            return (
-              <Home viewer={props.viewer} removeTripHandler={this.removeTrip} />
-            );
-          }
-          return <div>Loading...</div>;
-        }}
-      />
+      <div>
+        <Trips viewer={this.props.viewer} />
+      </div>
     );
   }
 }
