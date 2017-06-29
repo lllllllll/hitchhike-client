@@ -43,11 +43,11 @@ class App extends Component {
               id
               name
               picture_url
-              ...Trips_viewer
+              ...Home_viewer
             }
           }
         `}
-        variables={{ access_token: this.props.cookieManager.getToken() }}
+        variables={{ access_token: accessToken }}
         render={({ error, props }) => {
           if (error) {
             return <div>{error.message}</div>;

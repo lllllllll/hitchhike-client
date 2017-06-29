@@ -1,12 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
-import { QueryRenderer, graphql } from 'react-relay';
-import { Environment, Network, RecordSource, Store } from 'relay-runtime';
+import { graphql, commitMutation, createFragmentContainer } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
-import Home from '../component/Home';
 import Trips from '../component/Trips';
-import environment from '../environment';
-import AddTripContainer from './AddTrip';
 
 // const query = graphql`
 //   query HomeQuery($access_token: String) {
@@ -20,41 +15,101 @@ import AddTripContainer from './AddTrip';
 //   }
 // `;
 
-const mutation = graphql`
-  mutation HomeMutation($input: RemoveTripInput!) {
+const removeTripMutation = graphql`
+  mutation HomeRemoveTripMutation($input: RemoveTripInput!) {
     removeTrip(input: $input) {
       id
     }
   }
 `;
 
+const updateTripMutation = graphql`
+  mutation HomeJoinTripMutation($input: UpdateTripInput!) {
+    updateTrip(input: $input) {
+      id
+    }
+  }
+`;
+
 class Container extends React.Component {
-  removeTrip = (id, user_id) => {
-    // commitMutation(environment, {
-    //   mutation,
-    //   variables: { input: { id } },
-    //   updater: store => {
-    //     const payload = store.getRootField('removeTrip');
-    //     const deletedId = payload.getValue('id');
-    //     const userProxy = store.get(user_id);
-    //     const connection = ConnectionHandler.getConnection(
-    //       userProxy,
-    //       'Trips_trips'
-    //     );
-    //     ConnectionHandler.deleteNode(connection, deletedId);
-    //   },
-    //   onCompleted: () => console.log('removeTrip completed'),
-    //   onError: error => console.error(error)
-    // });
+  _removeTrip = (id, user_id) => {
+    commitMutation(this.props.relay.environment, {
+      mutation: removeTripMutation,
+      variables: { input: { id } },
+      updater: store => {
+        const rootField = store.getRootField('removeTrip');
+        const deletedId = rootField.getValue('id');
+        const userProxy = store.get(user_id);
+        const connection = ConnectionHandler.getConnection(
+          userProxy,
+          'Home_trips'
+        );
+        ConnectionHandler.deleteNode(connection, deletedId);
+      },
+      onCompleted: () => console.log('removeTrip completed'),
+      onError: error => console.error(error)
+    });
+  };
+  _joinTrip = (trip_id, hitchhikers) => {
+    commitMutation(this.props.relay.environment, {
+      mutation: updateTripMutation,
+      variables: { input: { id: trip_id, hitchhikers } },
+      // updater: store => {
+      //   debugger;
+      //   const rootField = store.getRootField('updateTrip');
+      //   // const updated_id = rootField.getValue('id');
+      //   const userProxy = store.get(hitchhikers[hitchhikers.length - 1]);
+      //   console.log('hitchhikers', hitchhikers);
+      //   // userProxy.setValue(hitchhikers, 'hitchhikers');
+      //   // const connection = ConnectionHandler.getConnection(
+      //   //   userProxy,
+      //   //   'Home_trips'
+      //   // );
+      //   // ConnectionHandler.deleteNode(connection, deletedId);
+      // },
+      onCompleted: () => console.log('removeTrip completed'),
+      onError: error => console.error(error)
+    });
   };
   render() {
     console.log('home props', this.props);
     return (
       <div>
-        <Trips viewer={this.props.viewer} />
+        <Trips
+          viewer={this.props.viewer}
+          deleteButtonClickedCallback={this._removeTrip}
+          joinButtonClickedCallback={this._joinTrip}
+        />
       </div>
     );
   }
 }
 
-export default Container;
+export default createFragmentContainer(Container, {
+  viewer: graphql`
+  fragment Home_viewer on User {
+    id
+    trips(first: 10) @connection(key: "Home_trips", filters: []) {
+      edges {
+        node {
+          created_at
+          id
+          from
+          to
+          travel_time
+          hitchhikers {
+            id
+            name
+            picture_url
+          }
+          created_by {
+            id
+            name
+            picture_url
+          }
+        }
+      }
+    }
+  }
+`
+});

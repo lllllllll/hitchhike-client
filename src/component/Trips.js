@@ -10,6 +10,7 @@ const ProfilePicture = styled.img`
   width: 30px;
   height: 30px;
   border-radius: 100%;
+  margin: 0 0 0 8px;
 `;
 
 const DirectionalIcon = styled.div`
@@ -18,10 +19,20 @@ const DirectionalIcon = styled.div`
   justify-content: center;
 `;
 
+const Hitchhikers = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const Trips = props => {
-  console.log(props);
   const { viewer } = props;
   const trips = props.viewer.trips.edges.map(edge => edge.node);
+  const onClickJoinButton = (viewer_id, trip) => _ => {
+    const hitchhikers = [...trip.hitchhikers.map(hitchhiker => hitchhiker.id)];
+    hitchhikers.push(viewer_id);
+    console.log(hitchhikers);
+    props.joinButtonClickedCallback(trip.id, hitchhikers);
+  };
   return (
     <div>
       <ul>
@@ -61,20 +72,28 @@ const Trips = props => {
                 <div className="level-left">
                   {trip.hitchhikers.length === 0 && <strong>No member</strong>}
                   {trip.hitchhikers.length > 0 &&
-                    trip.hitchhikers.map(hitchhiker =>
-                      <span key={hitchhiker.id}>
-                        <ProfilePicture
-                          src={hitchhiker.picture_url}
-                          alt={hitchhiker.name}
-                        />
-                      </span>,
-                    )}
+                    <Hitchhikers>
+                      <strong>Members: </strong>
+                      {trip.hitchhikers.map(hitchhiker =>
+                        <span key={hitchhiker.id}>
+                          <ProfilePicture
+                            src={hitchhiker.picture_url}
+                            alt={hitchhiker.name}
+                          />
+                        </span>
+                      )}
+                    </Hitchhikers>}
                 </div>
                 <div className="level-right" />
               </div>
               <div className="field is-grouped">
                 <p className="control">
-                  <a className="button is-primary">Join</a>
+                  <a
+                    className="button is-primary"
+                    onClick={onClickJoinButton(viewer.id, trip)}
+                  >
+                    Join
+                  </a>
                 </p>
                 <p className="control">
                   <a
@@ -87,7 +106,7 @@ const Trips = props => {
                 </p>
               </div>
             </div>
-          </Item>,
+          </Item>
         )}
       </ul>
     </div>
@@ -95,34 +114,7 @@ const Trips = props => {
 };
 
 Trips.defaultProps = {
-  trips: [],
+  joinButtonClickedCallback() {}
 };
 
-export default createFragmentContainer(Trips, {
-  viewer: graphql`
-  fragment Trips_viewer on User {
-    id
-    trips(first: 10) @connection(key: "Trips_trips", filters: []) {
-      edges {
-        node {
-          created_at
-          id
-          from
-          to
-          travel_time
-          hitchhikers {
-            id
-            name
-            picture_url
-          }
-          created_by {
-            id
-            name
-            picture_url
-          }
-        }
-      }
-    }
-  }
-`,
-});
+export default Trips;
