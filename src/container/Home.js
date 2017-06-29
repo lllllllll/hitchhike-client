@@ -60,29 +60,14 @@ class Container extends React.Component {
         );
         ConnectionHandler.deleteNode(connection, deletedId);
       },
-      onCompleted: () => console.log('removeTrip completed'),
-      onError: error => console.error(error)
+      onError: error => console.error(error) // TODO: handle error
     });
   };
   _joinTrip = (trip_id, hitchhikers) => {
     commitMutation(this.props.relay.environment, {
       mutation: updateTripMutation,
       variables: { input: { id: trip_id, hitchhikers } },
-      // updater: store => {
-      //   debugger;
-      //   const rootField = store.getRootField('updateTrip');
-      //   // const updated_id = rootField.getValue('id');
-      //   const userProxy = store.get(hitchhikers[hitchhikers.length - 1]);
-      //   console.log('hitchhikers', hitchhikers);
-      //   // userProxy.setValue(hitchhikers, 'hitchhikers');
-      //   // const connection = ConnectionHandler.getConnection(
-      //   //   userProxy,
-      //   //   'Home_trips'
-      //   // );
-      //   // ConnectionHandler.deleteNode(connection, deletedId);
-      // },
-      onCompleted: () => console.log('removeTrip completed'),
-      onError: error => console.error(error)
+      onError: error => console.error(error) // TODO: handle error
     });
   };
   render() {

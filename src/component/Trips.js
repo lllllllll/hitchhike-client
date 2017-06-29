@@ -30,7 +30,6 @@ const Trips = props => {
   const onClickJoinButton = (viewer_id, trip) => _ => {
     const hitchhikers = [...trip.hitchhikers.map(hitchhiker => hitchhiker.id)];
     hitchhikers.push(viewer_id);
-    console.log(hitchhikers);
     props.joinButtonClickedCallback(trip.id, hitchhikers);
   };
   return (
