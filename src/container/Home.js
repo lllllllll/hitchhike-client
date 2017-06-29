@@ -3,18 +3,6 @@ import { graphql, commitMutation, createFragmentContainer } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
 import Trips from '../component/Trips';
 
-// const query = graphql`
-//   query HomeQuery($access_token: String) {
-//     user(access_token: $access_token) {
-//       id
-//       name
-//       is_admin
-//       picture_url
-//       ...Home_trips
-//     }
-//   }
-// `;
-
 const removeTripMutation = graphql`
   mutation HomeRemoveTripMutation($input: RemoveTripInput!) {
     removeTrip(input: $input) {
@@ -56,18 +44,18 @@ class Container extends React.Component {
         const userProxy = store.get(user_id);
         const connection = ConnectionHandler.getConnection(
           userProxy,
-          'Home_trips'
+          'Home_trips',
         );
         ConnectionHandler.deleteNode(connection, deletedId);
       },
-      onError: error => console.error(error) // TODO: handle error
+      onError: error => console.error(error), // TODO: handle error
     });
   };
   _joinTrip = (trip_id, hitchhikers) => {
     commitMutation(this.props.relay.environment, {
       mutation: updateTripMutation,
       variables: { input: { id: trip_id, hitchhikers } },
-      onError: error => console.error(error) // TODO: handle error
+      onError: error => console.error(error), // TODO: handle error
     });
   };
   render() {
@@ -110,5 +98,5 @@ export default createFragmentContainer(Container, {
       }
     }
   }
-`
+`,
 });

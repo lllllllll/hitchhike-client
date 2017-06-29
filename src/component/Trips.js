@@ -1,5 +1,4 @@
 import React from 'react';
-import { createFragmentContainer, graphql } from 'react-relay';
 import styled from 'styled-components';
 
 const Item = styled.li`
@@ -35,7 +34,7 @@ const Trips = props => {
   const doShowJoinButton = (viewer_id, trip) => {
     const doViewerOwnThisTrip = trip.created_by.id === viewer_id;
     const doViewerJoinedThisTrip = trip.hitchhikers.some(
-      hitchhiker => hitchhiker.id === viewer_id
+      hitchhiker => hitchhiker.id === viewer_id,
     );
     return !doViewerOwnThisTrip && !doViewerJoinedThisTrip;
   };
@@ -86,7 +85,7 @@ const Trips = props => {
                             src={hitchhiker.picture_url}
                             alt={hitchhiker.name}
                           />
-                        </span>
+                        </span>,
                       )}
                     </Hitchhikers>}
                 </div>
@@ -113,7 +112,7 @@ const Trips = props => {
                 </p>
               </div>
             </div>
-          </Item>
+          </Item>,
         )}
       </ul>
     </div>
@@ -121,7 +120,7 @@ const Trips = props => {
 };
 
 Trips.defaultProps = {
-  joinButtonClickedCallback() {}
+  joinButtonClickedCallback() {},
 };
 
 export default Trips;
