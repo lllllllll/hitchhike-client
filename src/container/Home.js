@@ -26,7 +26,21 @@ const removeTripMutation = graphql`
 const updateTripMutation = graphql`
   mutation HomeJoinTripMutation($input: UpdateTripInput!) {
     updateTrip(input: $input) {
+      created_at
       id
+      from
+      to
+      travel_time
+      hitchhikers {
+        id
+        name
+        picture_url
+      }
+      created_by {
+        id
+        name
+        picture_url
+      }
     }
   }
 `;
