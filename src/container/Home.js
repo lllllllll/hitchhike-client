@@ -51,7 +51,7 @@ class Container extends React.Component {
       onError: error => console.error(error), // TODO: handle error
     });
   };
-  _joinTrip = (trip_id, hitchhikers) => {
+  _updateTripMember = (trip_id, hitchhikers) => {
     commitMutation(this.props.relay.environment, {
       mutation: updateTripMutation,
       variables: { input: { id: trip_id, hitchhikers } },
@@ -65,7 +65,8 @@ class Container extends React.Component {
         <Trips
           viewer={this.props.viewer}
           deleteButtonClickedCallback={this._removeTrip}
-          joinButtonClickedCallback={this._joinTrip}
+          joinButtonClickedCallback={this._updateTripMember}
+          cancelJoinButtonClickedCallback={this._updateTripMember}
         />
       </div>
     );

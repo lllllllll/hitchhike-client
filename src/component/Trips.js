@@ -23,21 +23,38 @@ const Hitchhikers = styled.div`
   align-items: center;
 `;
 
+const onClickJoinButton = (viewer_id, trip, callback) => () => {
+  const hitchhikers = [...trip.hitchhikers.map(hitchhiker => hitchhiker.id)];
+  hitchhikers.push(viewer_id);
+  callback(trip.id, hitchhikers);
+};
+const onClickCancelJoinButton = (viewer_id, trip, callback) => () => {
+  const hitchhikers = [...trip.hitchhikers.map(hitchhiker => hitchhiker.id)];
+  const index = hitchhikers.indexOf(viewer_id);
+  hitchhikers.splice(index, 1);
+  callback(trip.id, hitchhikers);
+};
+const doShowJoinButton = (viewer_id, trip) => {
+  const doViewerOwnThisTrip = trip.created_by.id === viewer_id && false;
+  const doViewerJoinedThisTrip = trip.hitchhikers.some(
+    hitchhiker => hitchhiker.id === viewer_id,
+  );
+  return !doViewerOwnThisTrip && !doViewerJoinedThisTrip;
+};
+const doShowCancelJoinButton = (viewer_id, trip) => {
+  const doViewerJoinedThisTrip = trip.hitchhikers.some(
+    hitchhiker => hitchhiker.id === viewer_id,
+  );
+  return doViewerJoinedThisTrip;
+};
+
 const Trips = props => {
-  const { viewer } = props;
+  const {
+    viewer,
+    joinButtonClickedCallback,
+    cancelJoinButtonClickedCallback,
+  } = props;
   const trips = props.viewer.trips.edges.map(edge => edge.node);
-  const onClickJoinButton = (viewer_id, trip) => _ => {
-    const hitchhikers = [...trip.hitchhikers.map(hitchhiker => hitchhiker.id)];
-    hitchhikers.push(viewer_id);
-    props.joinButtonClickedCallback(trip.id, hitchhikers);
-  };
-  const doShowJoinButton = (viewer_id, trip) => {
-    const doViewerOwnThisTrip = trip.created_by.id === viewer_id;
-    const doViewerJoinedThisTrip = trip.hitchhikers.some(
-      hitchhiker => hitchhiker.id === viewer_id,
-    );
-    return !doViewerOwnThisTrip && !doViewerJoinedThisTrip;
-  };
   return (
     <div>
       <ul>
@@ -96,9 +113,26 @@ const Trips = props => {
                   <p className="control">
                     <a
                       className="button is-primary"
-                      onClick={onClickJoinButton(viewer.id, trip)}
+                      onClick={onClickJoinButton(
+                        viewer.id,
+                        trip,
+                        joinButtonClickedCallback,
+                      )}
                     >
                       Join
+                    </a>
+                  </p>}
+                {doShowCancelJoinButton(viewer.id, trip) &&
+                  <p className="control">
+                    <a
+                      className="button is-warning"
+                      onClick={onClickCancelJoinButton(
+                        viewer.id,
+                        trip,
+                        cancelJoinButtonClickedCallback,
+                      )}
+                    >
+                      Remove me from this trip
                     </a>
                   </p>}
                 <p className="control">
@@ -121,6 +155,7 @@ const Trips = props => {
 
 Trips.defaultProps = {
   joinButtonClickedCallback() {},
+  cancelJoinButtonClickedCallback() {},
 };
 
 export default Trips;
