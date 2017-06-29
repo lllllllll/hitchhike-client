@@ -37,7 +37,7 @@ const Trips = props => {
     const doViewerJoinedThisTrip = trip.hitchhikers.some(
       hitchhiker => hitchhiker.id === viewer_id
     );
-    return !doViewerOwnThisTrip || !doViewerJoinedThisTrip;
+    return !doViewerOwnThisTrip && !doViewerJoinedThisTrip;
   };
   return (
     <div>
