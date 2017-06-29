@@ -3,6 +3,14 @@ import { graphql, commitMutation, createFragmentContainer } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
 import Trips from '../component/Trips';
 
+const add_trip_mutation = graphql`
+  mutation Home_Add_Trip_Mutation($input: AddTripInput!) {
+    addTrip(input: $input) {
+      id
+    }
+  }
+`;
+
 const remove_trip_mutation = graphql`
   mutation Home_Remove_Trip_Mutation($input: RemoveTripInput!) {
     removeTrip(input: $input) {
@@ -34,6 +42,28 @@ const update_trip_mutation = graphql`
 `;
 
 class Container extends React.Component {
+  state = {
+    from: '',
+    to: '',
+    travel_time: '',
+  };
+  _input_changed_handler = key => e => this.setState({ [key]: e.target.value });
+  _add_trip = viewer => e => {
+    e.preventDefault();
+    commitMutation(this.props.relay.environment, {
+      mutation: add_trip_mutation,
+      variables: {
+        input: {
+          created_by: viewer.id,
+          from: this.state.from,
+          to: this.state.to,
+          travel_time: new Date().getTime(),
+        },
+      },
+      onCompleted: () => this.setState({ isFinished: true }),
+      onError: error => console.error(error),
+    });
+  };
   _remove_trip = (id, user_id) => {
     commitMutation(this.props.relay.environment, {
       mutation: remove_trip_mutation,
@@ -61,6 +91,74 @@ class Container extends React.Component {
   render() {
     return (
       <div>
+        <div>
+          <h1 className="title">Begin a trip!</h1>
+          <form>
+            <div className="field">
+              <label className="label">From</label>
+              <p className="control">
+                <input
+                  className="input"
+                  type="text"
+                  placeholder="Place where your trip start"
+                  onChange={this._input_changed_handler('from')}
+                  value={this.state.from}
+                />
+              </p>
+            </div>
+            <div className="field">
+              <label className="label">To</label>
+              <p className="control">
+                <input
+                  className="input"
+                  type="text"
+                  placeholder="Your destination"
+                  onChange={this._input_changed_handler('to')}
+                  value={this.state.to}
+                />
+              </p>
+            </div>
+            <div className="field">
+              <label className="label">Date</label>
+              <p className="control">
+                <input
+                  className="input"
+                  type="date"
+                  placeholder="Your destination"
+                  onChange={this._input_changed_handler('date')}
+                  value={this.state.travel_time}
+                />
+              </p>
+            </div>
+            <div className="field">
+              <label className="label">Time</label>
+              <p className="control">
+                <input
+                  className="input"
+                  type="time"
+                  placeholder="Your destination"
+                  onChange={this._input_changed_handler('time')}
+                  value={this.state.travel_time}
+                />
+              </p>
+            </div>
+            <div className="field is-grouped">
+              <p className="control">
+                <button
+                  onClick={this._add_trip(this.props.viewer)}
+                  className="button is-primary"
+                >
+                  Submit
+                </button>
+              </p>
+              <p className="control">
+                <button className="button is-link">
+                  Cancel
+                </button>
+              </p>
+            </div>
+          </form>
+        </div>
         <Trips
           viewer={this.props.viewer}
           delete_button_clicked_callback={this._remove_trip}
