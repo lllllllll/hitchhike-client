@@ -32,12 +32,12 @@ const Trips = props => {
     hitchhikers.push(viewer_id);
     props.joinButtonClickedCallback(trip.id, hitchhikers);
   };
-  const hideJoinButton = (viewer_id, trip) => {
+  const doShowJoinButton = (viewer_id, trip) => {
     const doViewerOwnThisTrip = trip.created_by.id === viewer_id;
     const doViewerJoinedThisTrip = trip.hitchhikers.some(
       hitchhiker => hitchhiker.id === viewer_id
     );
-    return doViewerOwnThisTrip || doViewerJoinedThisTrip;
+    return !doViewerOwnThisTrip || !doViewerJoinedThisTrip;
   };
   return (
     <div>
@@ -93,7 +93,7 @@ const Trips = props => {
                 <div className="level-right" />
               </div>
               <div className="field is-grouped">
-                {hideJoinButton(viewer.id, trip) === false &&
+                {doShowJoinButton(viewer.id, trip) &&
                   <p className="control">
                     <a
                       className="button is-primary"
