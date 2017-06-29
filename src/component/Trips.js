@@ -35,7 +35,7 @@ const onClickCancelJoinButton = (viewer_id, trip, callback) => () => {
   callback(trip.id, hitchhikers);
 };
 const doShowJoinButton = (viewer_id, trip) => {
-  const doViewerOwnThisTrip = trip.created_by.id === viewer_id && false;
+  const doViewerOwnThisTrip = trip.created_by.id === viewer_id;
   const doViewerJoinedThisTrip = trip.hitchhikers.some(
     hitchhiker => hitchhiker.id === viewer_id,
   );
