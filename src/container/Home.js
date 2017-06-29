@@ -3,16 +3,16 @@ import { graphql, commitMutation, createFragmentContainer } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
 import Trips from '../component/Trips';
 
-const removeTripMutation = graphql`
-  mutation HomeRemoveTripMutation($input: RemoveTripInput!) {
+const remove_trip_mutation = graphql`
+  mutation Home_Remove_Trip_Mutation($input: RemoveTripInput!) {
     removeTrip(input: $input) {
       id
     }
   }
 `;
 
-const updateTripMutation = graphql`
-  mutation HomeJoinTripMutation($input: UpdateTripInput!) {
+const update_trip_mutation = graphql`
+  mutation Home_Update_Trip_Mutation($input: UpdateTripInput!) {
     updateTrip(input: $input) {
       created_at
       id
@@ -34,9 +34,9 @@ const updateTripMutation = graphql`
 `;
 
 class Container extends React.Component {
-  _removeTrip = (id, user_id) => {
+  _remove_trip = (id, user_id) => {
     commitMutation(this.props.relay.environment, {
-      mutation: removeTripMutation,
+      mutation: remove_trip_mutation,
       variables: { input: { id } },
       updater: store => {
         const rootField = store.getRootField('removeTrip');
@@ -51,22 +51,21 @@ class Container extends React.Component {
       onError: error => console.error(error), // TODO: handle error
     });
   };
-  _updateTripMember = (trip_id, hitchhikers) => {
+  _update_trip_member = (trip_id, hitchhikers) => {
     commitMutation(this.props.relay.environment, {
-      mutation: updateTripMutation,
+      mutation: update_trip_mutation,
       variables: { input: { id: trip_id, hitchhikers } },
       onError: error => console.error(error), // TODO: handle error
     });
   };
   render() {
-    console.log('home props', this.props);
     return (
       <div>
         <Trips
           viewer={this.props.viewer}
-          deleteButtonClickedCallback={this._removeTrip}
-          joinButtonClickedCallback={this._updateTripMember}
-          cancelJoinButtonClickedCallback={this._updateTripMember}
+          delete_button_clicked_callback={this._remove_trip}
+          join_button_clicked_callback={this._update_trip_member}
+          cancel_join_button_clicked_callback={this._update_trip_member}
         />
       </div>
     );
