@@ -26,7 +26,7 @@ ReactDOM.render(
     <div>
       <Route
         path="/signin"
-        component={props => <SignIn cookieManager={cookieManager} />}
+        component={props => <SignIn {...props} cookieManager={cookieManager} />}
       />
       <App cookieManager={cookieManager} />
     </div>

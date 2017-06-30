@@ -32,7 +32,7 @@ class App extends Component {
   render() {
     const accessToken = this.props.cookieManager.getToken();
     if (!accessToken) {
-      return <Redirect to="/sigin" />;
+      return <Redirect to="/signin" />;
     }
     return (
       <QueryRenderer

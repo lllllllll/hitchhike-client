@@ -6,7 +6,21 @@ import Trips from '../component/Trips';
 const add_trip_mutation = graphql`
   mutation Home_Add_Trip_Mutation($input: AddTripInput!) {
     addTrip(input: $input) {
+      created_at
       id
+      from
+      to
+      travel_time
+      hitchhikers {
+        id
+        name
+        picture_url
+      }
+      created_by {
+        id
+        name
+        picture_url
+      }
     }
   }
 `;
@@ -45,7 +59,7 @@ class Container extends React.Component {
   state = {
     from: '',
     to: '',
-    travel_time: '',
+    travel_time: ''
   };
   _input_changed_handler = key => e => this.setState({ [key]: e.target.value });
   _add_trip = viewer => e => {
@@ -57,11 +71,11 @@ class Container extends React.Component {
           created_by: viewer.id,
           from: this.state.from,
           to: this.state.to,
-          travel_time: new Date().getTime(),
-        },
+          travel_time: new Date().getTime()
+        }
       },
       onCompleted: () => this.setState({ isFinished: true }),
-      onError: error => console.error(error),
+      onError: error => console.error(error)
     });
   };
   _remove_trip = (id, user_id) => {
@@ -74,18 +88,18 @@ class Container extends React.Component {
         const userProxy = store.get(user_id);
         const connection = ConnectionHandler.getConnection(
           userProxy,
-          'Home_trips',
+          'Home_trips'
         );
         ConnectionHandler.deleteNode(connection, deletedId);
       },
-      onError: error => console.error(error), // TODO: handle error
+      onError: error => console.error(error) // TODO: handle error
     });
   };
   _update_trip_member = (trip_id, hitchhikers) => {
     commitMutation(this.props.relay.environment, {
       mutation: update_trip_mutation,
       variables: { input: { id: trip_id, hitchhikers } },
-      onError: error => console.error(error), // TODO: handle error
+      onError: error => console.error(error) // TODO: handle error
     });
   };
   render() {
@@ -196,5 +210,5 @@ export default createFragmentContainer(Container, {
       }
     }
   }
-`,
+`
 });
