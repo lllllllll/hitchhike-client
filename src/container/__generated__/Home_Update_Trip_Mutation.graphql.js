@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 151b00ee596cca9f9a5e117efd88e5f1
+ * @relayHash 26dd0ed6c53910aed482991f93cc7bec
  */
 
 /* eslint-disable */
@@ -9,7 +9,7 @@
 
 /*::
 import type {ConcreteBatch} from 'relay-runtime';
-export type HomeJoinTripMutationVariables = {|
+export type Home_Update_Trip_MutationVariables = {|
   input: {
     id: string;
     from?: ?string;
@@ -19,7 +19,7 @@ export type HomeJoinTripMutationVariables = {|
   };
 |};
 
-export type HomeJoinTripMutationResponse = {|
+export type Home_Update_Trip_MutationResponse = {|
   +updateTrip: ?{|
     +created_at: ?number;
     +id: ?string;
@@ -42,7 +42,7 @@ export type HomeJoinTripMutationResponse = {|
 
 
 /*
-mutation HomeJoinTripMutation(
+mutation Home_Update_Trip_Mutation(
   $input: UpdateTripInput!
 ) {
   updateTrip(input: $input) {
@@ -77,7 +77,7 @@ const batch /*: ConcreteBatch*/ = {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "HomeJoinTripMutation",
+    "name": "Home_Update_Trip_Mutation",
     "selections": [
       {
         "kind": "LinkedField",
@@ -202,7 +202,7 @@ const batch /*: ConcreteBatch*/ = {
   "id": null,
   "kind": "Batch",
   "metadata": {},
-  "name": "HomeJoinTripMutation",
+  "name": "Home_Update_Trip_Mutation",
   "query": {
     "argumentDefinitions": [
       {
@@ -213,7 +213,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ],
     "kind": "Root",
-    "name": "HomeJoinTripMutation",
+    "name": "Home_Update_Trip_Mutation",
     "operation": "mutation",
     "selections": [
       {
@@ -335,7 +335,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "mutation HomeJoinTripMutation(\n  $input: UpdateTripInput!\n) {\n  updateTrip(input: $input) {\n    created_at\n    id\n    from\n    to\n    travel_time\n    hitchhikers {\n      id\n      name\n      picture_url\n    }\n    created_by {\n      id\n      name\n      picture_url\n    }\n  }\n}\n"
+  "text": "mutation Home_Update_Trip_Mutation(\n  $input: UpdateTripInput!\n) {\n  updateTrip(input: $input) {\n    created_at\n    id\n    from\n    to\n    travel_time\n    hitchhikers {\n      id\n      name\n      picture_url\n    }\n    created_by {\n      id\n      name\n      picture_url\n    }\n  }\n}\n"
 };
 
 module.exports = batch;

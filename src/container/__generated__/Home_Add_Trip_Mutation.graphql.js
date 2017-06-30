@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 2f8d5ace01f22a2c0e5f1c736eb43683
+ * @relayHash b9d2fdd14b52c3718415ef4744c5f30f
  */
 
 /* eslint-disable */
@@ -9,14 +9,17 @@
 
 /*::
 import type {ConcreteBatch} from 'relay-runtime';
-export type HomeRemoveTripMutationVariables = {|
+export type Home_Add_Trip_MutationVariables = {|
   input: {
-    id: string;
+    created_by: string;
+    from: string;
+    to: string;
+    travel_time: number;
   };
 |};
 
-export type HomeRemoveTripMutationResponse = {|
-  +removeTrip: ?{|
+export type Home_Add_Trip_MutationResponse = {|
+  +addTrip: ?{|
     +id: ?string;
   |};
 |};
@@ -24,10 +27,10 @@ export type HomeRemoveTripMutationResponse = {|
 
 
 /*
-mutation HomeRemoveTripMutation(
-  $input: RemoveTripInput!
+mutation Home_Add_Trip_Mutation(
+  $input: AddTripInput!
 ) {
-  removeTrip(input: $input) {
+  addTrip(input: $input) {
     id
   }
 }
@@ -39,13 +42,13 @@ const batch /*: ConcreteBatch*/ = {
       {
         "kind": "LocalArgument",
         "name": "input",
-        "type": "RemoveTripInput!",
+        "type": "AddTripInput!",
         "defaultValue": null
       }
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "HomeRemoveTripMutation",
+    "name": "Home_Add_Trip_Mutation",
     "selections": [
       {
         "kind": "LinkedField",
@@ -55,11 +58,11 @@ const batch /*: ConcreteBatch*/ = {
             "kind": "Variable",
             "name": "input",
             "variableName": "input",
-            "type": "RemoveTripInput!"
+            "type": "AddTripInput!"
           }
         ],
         "concreteType": "Trip",
-        "name": "removeTrip",
+        "name": "addTrip",
         "plural": false,
         "selections": [
           {
@@ -78,18 +81,18 @@ const batch /*: ConcreteBatch*/ = {
   "id": null,
   "kind": "Batch",
   "metadata": {},
-  "name": "HomeRemoveTripMutation",
+  "name": "Home_Add_Trip_Mutation",
   "query": {
     "argumentDefinitions": [
       {
         "kind": "LocalArgument",
         "name": "input",
-        "type": "RemoveTripInput!",
+        "type": "AddTripInput!",
         "defaultValue": null
       }
     ],
     "kind": "Root",
-    "name": "HomeRemoveTripMutation",
+    "name": "Home_Add_Trip_Mutation",
     "operation": "mutation",
     "selections": [
       {
@@ -100,11 +103,11 @@ const batch /*: ConcreteBatch*/ = {
             "kind": "Variable",
             "name": "input",
             "variableName": "input",
-            "type": "RemoveTripInput!"
+            "type": "AddTripInput!"
           }
         ],
         "concreteType": "Trip",
-        "name": "removeTrip",
+        "name": "addTrip",
         "plural": false,
         "selections": [
           {
@@ -119,7 +122,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "mutation HomeRemoveTripMutation(\n  $input: RemoveTripInput!\n) {\n  removeTrip(input: $input) {\n    id\n  }\n}\n"
+  "text": "mutation Home_Add_Trip_Mutation(\n  $input: AddTripInput!\n) {\n  addTrip(input: $input) {\n    id\n  }\n}\n"
 };
 
 module.exports = batch;
