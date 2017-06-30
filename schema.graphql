@@ -10,8 +10,12 @@ input AddTripInput {
   travel_time: Float!
 }
 
+type AddTripPayload {
+  tripEdge: UserTripsEdge
+}
+
 type Mutation {
-  addTrip(input: AddTripInput!): Trip
+  addTrip(input: AddTripInput!): AddTripPayload
   updateTrip(input: UpdateTripInput!): Trip
   removeTrip(input: RemoveTripInput!): Trip
 }
