@@ -1,7 +1,10 @@
 import React from 'react';
 import { graphql, commitMutation, createFragmentContainer } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
+import styled from 'styled-components';
 import Trips from '../component/Trips';
+
+const TripEditor = styled.div`padding: 16px;`;
 
 const add_trip_mutation = graphql`
   mutation Home_Add_Trip_Mutation($input: AddTripInput!) {
@@ -118,26 +121,14 @@ class Container extends React.Component {
   render() {
     return (
       <div>
-        <div>
+        <TripEditor>
           <h1 className="title">Begin a trip!</h1>
           <form>
-            <div className="field">
-              <label className="label">From</label>
-              <p className="control">
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Place where your trip start"
-                  onChange={this._input_changed_handler('from')}
-                  value={this.state.from}
-                />
-              </p>
-            </div>
             <div className="field">
               <label className="label">To</label>
               <p className="control">
                 <input
-                  className="input"
+                  className="input is-large"
                   type="text"
                   placeholder="Your destination"
                   onChange={this._input_changed_handler('to')}
@@ -146,10 +137,22 @@ class Container extends React.Component {
               </p>
             </div>
             <div className="field">
+              <label className="label">From</label>
+              <p className="control">
+                <input
+                  className="input is-small"
+                  type="text"
+                  placeholder="Place where your trip start"
+                  onChange={this._input_changed_handler('from')}
+                  value={this.state.from}
+                />
+              </p>
+            </div>
+            <div className="field">
               <label className="label">Date</label>
               <p className="control">
                 <input
-                  className="input"
+                  className="input is-small"
                   type="date"
                   placeholder="Your destination"
                   onChange={this._input_changed_handler('date')}
@@ -161,7 +164,7 @@ class Container extends React.Component {
               <label className="label">Time</label>
               <p className="control">
                 <input
-                  className="input"
+                  className="input is-small"
                   type="time"
                   placeholder="Your destination"
                   onChange={this._input_changed_handler('time')}
@@ -183,7 +186,7 @@ class Container extends React.Component {
               </p>
             </div>
           </form>
-        </div>
+        </TripEditor>
         <Trips
           viewer={this.props.viewer}
           delete_button_clicked_callback={this._remove_trip}
