@@ -12,15 +12,31 @@ const ProfilePicture = styled.img`
   border-radius: 100%;
   margin: 0 0 0 8px;
 `;
-const ToBox = styled.div`padding: 8px;`;
+const ToBox = styled.div`
+  padding: 8px;
+  margin-bottom: 8px !important;
+`;
 const ToName = styled.p`
+  text-align: center;
   font-size: 32px;
   line-height: 1;
 `;
-const ToLabel = styled.p`font-size: 12px;`;
-const FromBox = styled.div`padding: 8px;`;
-const FromName = styled.p`font-size: 16px;`;
-const FromLabel = styled.p`font-size: 12px;`;
+const ToLabel = styled.p`
+  font-size: 12px;
+  text-align: center;
+`;
+const FromBox = styled.div`
+  padding: 8px;
+  margin-bottom: 0px !important;
+`;
+const FromName = styled.p`
+  font-size: 16px;
+  text-align: center;
+`;
+const FromLabel = styled.p`
+  font-size: 12px;
+  text-align: center;
+`;
 const Hitchhikers = styled.div`
   display: flex;
   align-items: center;
@@ -84,34 +100,26 @@ const Trips = props => {
                   </div>
                 </div>
               </TripOwner>
-              <div className="columns is-mobile is-gapless">
-                <div className="column is-12-mobile">
-                  <ToBox className="box">
-                    <ToName>
-                      <strong>
-                        {trip.to}
-                      </strong>
-                    </ToName>
-                    <ToLabel>
-                      <small>To</small>
-                    </ToLabel>
-                  </ToBox>
-                </div>
-              </div>
-              <div className="columns is-mobile is-gapless">
-                <div className="column is-12-mobile">
-                  <FromBox className="box">
-                    <FromName>
-                      <strong>
-                        {trip.from}
-                      </strong>
-                    </FromName>
-                    <FromLabel>
-                      <small>From</small>
-                    </FromLabel>
-                  </FromBox>
-                </div>
-              </div>
+              <ToBox className="box">
+                <ToName>
+                  <strong>
+                    {trip.to}
+                  </strong>
+                </ToName>
+                <ToLabel>
+                  <small>To</small>
+                </ToLabel>
+              </ToBox>
+              <FromBox className="box">
+                <FromName>
+                  <strong>
+                    {trip.from}
+                  </strong>
+                </FromName>
+                <FromLabel>
+                  <small>From</small>
+                </FromLabel>
+              </FromBox>
               <div className="level">
                 <div className="level-left">
                   {trip.hitchhikers.length === 0 && <strong>No member</strong>}
