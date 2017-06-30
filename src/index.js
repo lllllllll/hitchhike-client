@@ -1,7 +1,7 @@
 import React from 'react';
 import docCookies from 'doc-cookies';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import App from './App';
 import SignIn from './SignIn';
 import CookieManager from './helper/CookieManager';
@@ -24,11 +24,16 @@ const cookieManager = new CookieManager(docCookies);
 ReactDOM.render(
   <Router>
     <div>
-      <Route
-        path="/signin"
-        component={props => <SignIn {...props} cookieManager={cookieManager} />}
-      />
-      <App cookieManager={cookieManager} />
+      <Switch>
+        <Route
+          path="/signin"
+          component={props =>
+            <SignIn {...props} cookieManager={cookieManager} />}
+        />
+        <Route
+          component={props => <App {...props} cookieManager={cookieManager} />}
+        />
+      </Switch>
     </div>
   </Router>,
   document.getElementById('root')
