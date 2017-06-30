@@ -47,6 +47,10 @@ const do_show_cancel_join_button = (viewer_id, trip) => {
   );
   return did_viewer_joined_this_trip;
 };
+const do_show_delete_button = (viewer_id, trip) => {
+  const do_viewer_own_this_trip = trip.created_by.id === viewer_id;
+  return do_viewer_own_this_trip;
+};
 
 const Trips = props => {
   const {
@@ -138,15 +142,19 @@ const Trips = props => {
                       Remove me from this trip
                     </a>
                   </p>}
-                <p className="control">
-                  <a
-                    className="button is-danger is-outlined"
-                    onClick={() =>
-                      props.delete_button_clicked_callback(trip.id, viewer.id)}
-                  >
-                    Delete
-                  </a>
-                </p>
+                {do_show_delete_button(viewer.id, trip) &&
+                  <p className="control">
+                    <a
+                      className="button is-danger is-outlined"
+                      onClick={() =>
+                        props.delete_button_clicked_callback(
+                          trip.id,
+                          viewer.id,
+                        )}
+                    >
+                      Delete
+                    </a>
+                  </p>}
               </div>
             </div>
           </Item>,
