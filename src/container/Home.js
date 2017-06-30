@@ -4,6 +4,11 @@ import { ConnectionHandler } from 'relay-runtime';
 import styled from 'styled-components';
 import Trips from '../component/Trips';
 
+const AddTripToggleContainer = styled.div`width: 100%;`;
+const AddTripToggle = styled.button`
+  width: 100%;
+  border-radius: 0px;
+`;
 const TripEditor = styled.div`padding: 16px;`;
 
 const add_trip_mutation = graphql`
@@ -66,7 +71,10 @@ class Container extends React.Component {
     from: '',
     to: '',
     travel_time: '',
+    do_show_editor: false,
   };
+  _editor_toggle = () =>
+    this.setState({ do_show_editor: !this.state.do_show_editor });
   _input_changed_handler = key => e => this.setState({ [key]: e.target.value });
   _add_trip = viewer => e => {
     e.preventDefault();
@@ -119,74 +127,95 @@ class Container extends React.Component {
     });
   };
   render() {
+    const { do_show_editor } = this.state;
     return (
       <div>
-        <TripEditor>
-          <h1 className="title">Begin a trip!</h1>
-          <form>
-            <div className="field">
-              <label className="label">To</label>
-              <p className="control">
-                <input
-                  className="input is-large"
-                  type="text"
-                  placeholder="Your destination"
-                  onChange={this._input_changed_handler('to')}
-                  value={this.state.to}
-                />
-              </p>
-            </div>
-            <div className="field">
-              <label className="label">From</label>
-              <p className="control">
-                <input
-                  className="input is-small"
-                  type="text"
-                  placeholder="Place where your trip start"
-                  onChange={this._input_changed_handler('from')}
-                  value={this.state.from}
-                />
-              </p>
-            </div>
-            <div className="field">
-              <label className="label">Date</label>
-              <p className="control">
-                <input
-                  className="input is-small"
-                  type="date"
-                  placeholder="Your destination"
-                  onChange={this._input_changed_handler('date')}
-                  value={this.state.travel_time}
-                />
-              </p>
-            </div>
-            <div className="field">
-              <label className="label">Time</label>
-              <p className="control">
-                <input
-                  className="input is-small"
-                  type="time"
-                  placeholder="Your destination"
-                  onChange={this._input_changed_handler('time')}
-                  value={this.state.travel_time}
-                />
-              </p>
-            </div>
-            <div className="field is-grouped">
-              <p className="control">
-                <button
-                  onClick={this._add_trip(this.props.viewer)}
-                  className="button is-primary"
-                >
-                  Submit
-                </button>
-              </p>
-              <p className="control">
-                <button className="button is-link">Cancel</button>
-              </p>
-            </div>
-          </form>
-        </TripEditor>
+        {do_show_editor
+          ? <TripEditor>
+              <h1 className="title">Begin a trip!</h1>
+              <form>
+                <div className="field">
+                  <label className="label">To</label>
+                  <p className="control">
+                    <input
+                      className="input is-large"
+                      type="text"
+                      placeholder="Your destination"
+                      onChange={this._input_changed_handler('to')}
+                      value={this.state.to}
+                    />
+                  </p>
+                </div>
+                <div className="field">
+                  <label className="label">From</label>
+                  <p className="control">
+                    <input
+                      className="input is-small"
+                      type="text"
+                      placeholder="Place where your trip start"
+                      onChange={this._input_changed_handler('from')}
+                      value={this.state.from}
+                    />
+                  </p>
+                </div>
+                <div className="field">
+                  <label className="label">Date</label>
+                  <p className="control">
+                    <input
+                      className="input is-small"
+                      type="date"
+                      placeholder="Your destination"
+                      onChange={this._input_changed_handler('date')}
+                      value={this.state.travel_time}
+                    />
+                  </p>
+                </div>
+                <div className="field">
+                  <label className="label">Time</label>
+                  <p className="control">
+                    <input
+                      className="input is-small"
+                      type="time"
+                      placeholder="Your destination"
+                      onChange={this._input_changed_handler('time')}
+                      value={this.state.travel_time}
+                    />
+                  </p>
+                </div>
+                <div className="field is-grouped">
+                  <p className="control">
+                    <button
+                      onClick={this._add_trip(this.props.viewer)}
+                      className="button is-primary"
+                    >
+                      Submit
+                    </button>
+                  </p>
+                  <p className="control">
+                    <button
+                      className="button is-white"
+                      onClick={e => {
+                        e.preventDefault();
+                        this._editor_toggle();
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </p>
+                </div>
+              </form>
+            </TripEditor>
+          : <AddTripToggleContainer>
+              <AddTripToggle
+                className="button is-primary"
+                onClick={e => {
+                  e.preventDefault();
+                  this._editor_toggle();
+                }}
+              >
+                Add your trip
+              </AddTripToggle>
+            </AddTripToggleContainer>}
         <Trips
           viewer={this.props.viewer}
           delete_button_clicked_callback={this._remove_trip}
