@@ -2,20 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Item = styled.li`margin: 0 0 16px 0;`;
-
+const TripOwner = styled.div`
+  font-size: 12px;
+  margin-bottom: 8px !important;
+`;
 const ProfilePicture = styled.img`
   width: 30px;
   height: 30px;
   border-radius: 100%;
   margin: 0 0 0 8px;
 `;
-
-const DirectionalIcon = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const ToBox = styled.div`padding: 8px;`;
+const ToName = styled.p`
+  font-size: 32px;
+  line-height: 1;
 `;
-
+const ToLabel = styled.p`font-size: 12px;`;
+const FromBox = styled.div`padding: 8px;`;
+const FromName = styled.p`font-size: 16px;`;
+const FromLabel = styled.p`font-size: 12px;`;
 const Hitchhikers = styled.div`
   display: flex;
   align-items: center;
@@ -66,7 +71,7 @@ const Trips = props => {
         {trips.map(trip =>
           <Item key={trip.id}>
             <div className="box">
-              <div className="level">
+              <TripOwner className="level">
                 <div className="level-left">
                   <div className="level-item">
                     <ProfilePicture
@@ -78,35 +83,33 @@ const Trips = props => {
                     </p>
                   </div>
                 </div>
-                <div className="level-right" />
-              </div>
+              </TripOwner>
               <div className="columns is-mobile is-gapless">
-                <div className="column is-5-mobile">
-                  <div className="box">
-                    <p>
-                      <strong>
-                        {trip.from}
-                      </strong>
-                    </p>
-                    <p>
-                      <small>From</small>
-                    </p>
-                  </div>
-                </div>
-                <DirectionalIcon className="column is-2-mobile">
-                  >
-                </DirectionalIcon>
-                <div className="column is-5-mobile">
-                  <div className="box">
-                    <p>
+                <div className="column is-12-mobile">
+                  <ToBox className="box">
+                    <ToName>
                       <strong>
                         {trip.to}
                       </strong>
-                    </p>
-                    <p>
+                    </ToName>
+                    <ToLabel>
                       <small>To</small>
-                    </p>
-                  </div>
+                    </ToLabel>
+                  </ToBox>
+                </div>
+              </div>
+              <div className="columns is-mobile is-gapless">
+                <div className="column is-12-mobile">
+                  <FromBox className="box">
+                    <FromName>
+                      <strong>
+                        {trip.from}
+                      </strong>
+                    </FromName>
+                    <FromLabel>
+                      <small>From</small>
+                    </FromLabel>
+                  </FromBox>
                 </div>
               </div>
               <div className="level">
