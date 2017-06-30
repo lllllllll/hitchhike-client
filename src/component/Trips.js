@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Item = styled.li`
-  margin: 0 0 16px 0;
-`;
+const Item = styled.li`margin: 0 0 16px 0;`;
 
 const ProfilePicture = styled.img`
   width: 30px;
@@ -75,7 +73,9 @@ const Trips = props => {
                       src={trip.created_by.picture_url}
                       alt={trip.created_by.name}
                     />
-                    <p className="card-header-title">{trip.created_by.name}</p>
+                    <p className="card-header-title">
+                      {trip.created_by.name}
+                    </p>
                   </div>
                 </div>
                 <div className="level-right" />
@@ -83,8 +83,14 @@ const Trips = props => {
               <div className="columns is-mobile is-gapless">
                 <div className="column is-5-mobile">
                   <div className="box">
-                    <p><strong>{trip.from}</strong></p>
-                    <p><small>From</small></p>
+                    <p>
+                      <strong>
+                        {trip.from}
+                      </strong>
+                    </p>
+                    <p>
+                      <small>From</small>
+                    </p>
                   </div>
                 </div>
                 <DirectionalIcon className="column is-2-mobile">
@@ -92,8 +98,14 @@ const Trips = props => {
                 </DirectionalIcon>
                 <div className="column is-5-mobile">
                   <div className="box">
-                    <p><strong>{trip.to}</strong></p>
-                    <p><small>To</small></p>
+                    <p>
+                      <strong>
+                        {trip.to}
+                      </strong>
+                    </p>
+                    <p>
+                      <small>To</small>
+                    </p>
                   </div>
                 </div>
               </div>
